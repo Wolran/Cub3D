@@ -18,17 +18,32 @@ INCDIR	=	-I ./inc
 OBJDIR	=	./obj
 
 # src / includes / obj files
-SRC		=	parsing/parsing.c \
-			parsing/open_file.c \
-			parsing/read_element.c \
-			parsing/read_map.c \
-			parsing/read_file.c \
-			parsing/test_map.c \
-			parsing/test_file.c \
-			parsing/error.c \
-			main.c \
+SRC		=	main.c \
+			 \
+			vec3.c \
+			 \
+			 parsing/map.c \
+			 parsing/elements.c \
+			 parsing/file.c \
+			 parsing/to_map.c \
+			 parsing/closed.c \
+			 \
+			cast_ray.c \
+			 \
+			map/manager.c \
+			map/getter.c \
+			map/setter.c \
+			map/render.c \
+			 \
+			render/raycaster.c \
+			render/reflection.c \
 
-INC		= game.h
+INC		=	vec3.h \
+			camera.h \
+			map.h \
+			cast_ray.h \
+			raycaster.h \
+			parsing.h \
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 
@@ -53,19 +68,23 @@ raw: obj $(ENGINE_LIB) $(NAME)
 fast: CFLAGS += -Ofast
 fast: obj $(ENGINE_LIB) $(NAME)
 
-debug: CFLAGS += -g3
+debug: CFLAGS += -gdwarf-4
 debug: obj $(ENGINE_LIB) $(NAME)
 
 obj:
 	@mkdir -p $(OBJDIR)
+
+.print:
+	@> $@
+	@echo "\e[1;36mCompiling...\e[0m"
 
 $(NAME): $(OBJ)
 	@echo "\e[1;35mLinking...\e[0m"
 	@$(CC) -o $(NAME) $+ $(ENGINE_LNK) -lm
 	@echo "\e[1;32m➤" $@ "created succesfully !\e[0m"
 
-$(OBJ): $(OBJDIR)/%.o: $(SRCDIR)/%.c Makefile
-	@echo "\e[1;36m[\e[0;36mC\e[1;36m]\e[0;36m → " $<"\e[0m"
+$(OBJDIR)/%.o: $(SRCDIR)/%.c .print
+	@echo "\e[0;36m ↳\e[0;36m" $<"\e[0m"
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(INCDIR) $(ENGINE_INC) -c $< -o $@
 
