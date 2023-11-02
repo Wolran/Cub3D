@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:49:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/02 19:54:48 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/02 19:58:57 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	ray_render(
 			ray = cast_ray(map, &cam->pos, &dir, cam->fog_distance * 2 + 1);
 			col = ray_to_pixel(map, &ray);
 			int height = (float)eng->screen->size[y] / (ray.dist);
-			// ft_rect(eng, (t_v2i){pix, eng->screen->size[y] / 2 - height / 2}, (t_v2i){1, height}, col);
+			 ft_rect(eng, (t_v2i){pix, eng->screen->size[y] / 2 - height / 2}, (t_v2i){1, height}, col);
 			pix++;
 		}
 	}
