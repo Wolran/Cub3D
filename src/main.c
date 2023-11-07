@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/23 17:50:11 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/07 05:55:27 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,113 +14,46 @@
 #include "entity/entity.h"
 #include "entity/all.h"
 #include "particle/particle.h"
-
-static inline void	__control(
-	t_engine *const eng,
-	t_camera *const cam,
-	t_data *const game,
-	double const dt)
-{
-	t_v3f const	dir = (t_v3f){cosf(cam->rot[x]), 0.0f, sinf(cam->rot[x])};
-	t_v3f const	off = (t_v3f){-sinf(cam->rot[x]), 0.0f, cosf(cam->rot[x])};
-	t_v3f const	up = (t_v3f){0.0f, 1.0f, 0.0f};
-	t_v3f		vel;
-
-	vel = (t_v3f){0};
-	if (eng->keys[K_UP])
-		vel += dir;
-	if (eng->keys[K_DOWN])
-		vel -= dir;
-	if (eng->keys[K_RIGHT])
-		vel += off;
-	if (eng->keys[K_LEFT])
-		vel -= off;
-	if (eng->keys[XK_space])
-		vel += up;
-	if (eng->keys[XK_Shift_L])
-		vel -= up;
-	game->box.pos += v3fnorm(vel, dt * 2.0f);
-	if (eng->keys[XK_Right])
-		cam->rot[x] += dt * 2;
-	if (eng->keys[XK_Left])
-		cam->rot[x] -= dt * 2;
-	if (eng->keys[XK_Down])
-		cam->rot[y] -= dt * 2;
-	if (eng->keys[XK_Up])
-		cam->rot[y] += dt * 2;
-	if (!game->show_settings)
-	{
-		cam->rot[x] += ((float)eng->mouse_x - 500)
-			* (game->sensitivity / 100.f * game->cam.fov_ratio);
-		cam->rot[y] -= ((float)eng->mouse_y - 260)
-			* (game->sensitivity / 100.f * game->cam.fov_ratio);
-		mlx_mouse_move(eng->mlx, eng->win, 500, 260);
-	}
-	if (cam->rot[x] < -M_PI)
-		cam->rot[x] += M_PI * 2;
-	else if (cam->rot[x] > M_PI)
-		cam->rot[x] -= M_PI * 2;
-	if (cam->rot[y] < -M_PI_2)
-		cam->rot[y] = -M_PI_2;
-	else if (cam->rot[y] > M_PI_2)
-		cam->rot[y] = M_PI_2;
-	if (ft_key(eng, XK_Tab).pressed)
-	{
-		if (game->show_settings)
-		{
-			mlx_mouse_move(eng->mlx, eng->win, 500, 260);
-			eng->mouse_x = 500;
-			eng->mouse_y = 260;
-			ft_hide_cursor(game->eng);
-		}
-		else
-			ft_show_cursor(game->eng);
-		game->show_settings = !game->show_settings;
-	}
-	if (ft_mouse(eng, 1).pressed)
-		e_fireball_add(game, game->cam.pos, game->cam.rot);
-}
+#include "aabb.h"
 
 static inline int	__loop(t_engine *eng, t_data *game, double dt)
 {
 	static float	time = 0.f;
 
 	time += dt;
-	__control(eng, &game->cam, game, dt);
-	player_collision(&game->map, &game->box);
-	game->cam.pos = game->box.pos;
-	game->cam.pos[x] += game->box.dim[x] / 2.0f;
-	game->cam.pos[y] += game->box.dim[y] * 0.8f;
-	game->cam.pos[z] += game->box.dim[z] / 2.0f;
 
+	game->cam.pos = ((t_entity *)game->entities.data)->aabb.pos
+		+ (t_v3f){0.16f, 0.7f, 0.16f};
 	entities_update(game, dt);
+
+	entities_collisions(game);
+	collision_ent(&game->entities, &game->map);
+
 	entities_destroy(game);
 
-	holding_update(eng, &game->cam, &game->holding, dt);
+	holding_update(eng, &game->cam, &game->holding, dt); // TO DO IN PLAYER AI
 
 	if (game->show_settings)
 		menu_update(eng, &game->menu);
 
+	t_ray	ray = cast_ray(&game->map, game->cam.pos, v3froty(v3frotz((t_v3f){1.f}, game->cam.rot[y]), game->cam.rot[x]), 999);
+	if (!game->show_settings && ft_mouse(eng, 1).pressed
+		&& game->selected_model == 3
+		&& map_get(&game->map, ray.pos) == cell_wall)
+	{
+		p_block_add(game, v3itof(ray.pos) + (t_v3f){.5f, .5f, .5f});
+		map_set(&game->map, ray.pos, cell_air);
+	}
+
 	game->cam.pos[y] += sinf(game->holding.energy_vel * 5.f) * 0.03f;
 	camera_update(&game->cam);
 	ray_render(eng, &game->map, &game->cam);
-	//atan2(data->cam.pos[z] - data->map.spawn[z], data->cam.pos[x] - data->map.spawn[x]) - M_PI_2
+
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.0f, .125f, 0.f}}, &game->models[0]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.25f, .125f, 0.f}}, &game->models[2]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.5f, .125f, 0.f}}, &game->models[3]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.75f, .125f, 0.f}}, &game->models[4]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){1.0f, .125f, 0.f}}, &game->models[5]);
-	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){1.25f, .125f, 0.f}}, &game->models[11]);
-
-	mesh_put(eng, &game->cam, (t_transform){{M_PI, 0.f}, {1.5f + sinf(time * 1.1f) * 0.02f, 1.5f + sinf(time) * 0.02f, 1.5f}, game->map.spawn + (t_v3f){1.2f, 0.4f, -4.5f}}, &game->models[6]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI, 0.f}, {1.5f + sinf(time * 1.1f) * 0.02f, 1.5f + sinf(time) * 0.02f, 1.5f}, game->map.spawn + (t_v3f){1.6f, 0.4f, -4.5f}}, &game->models[7]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI, 0.f}, {1.5f + sinf(time * 1.1f) * 0.02f, 1.5f + sinf(time) * 0.02f, 1.5f}, game->map.spawn + (t_v3f){2.0f, 0.4f, -4.5f}}, &game->models[8]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI, 0.f}, {1.5f + sinf(time * 1.1f) * 0.02f, 1.5f + sinf(time) * 0.02f, 1.5f}, game->map.spawn + (t_v3f){2.4f, 0.4f, -4.5f}}, &game->models[9]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI, 0.f}, {1.0f, 1.0f, 1.0f}, game->map.spawn + (t_v3f){3.f, 0.0f, -2.f}}, &game->models[3]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI_2, 0.f}, {1.0f, 1.0f, 1.0f}, game->map.spawn + (t_v3f){0.7f, 0.0f, -2.7f}}, &game->models[10]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI_2, 0.f}, {0.15f, .15f, .15f}, game->map.spawn + (t_v3f){3.7f, 0.4f, -3.0f}}, &game->models[11]);
-	
-	put_3d_spr(eng, &game->cam, game->sprites[0], game->map.spawn + (t_v3f){1.0f, .8f, 0.f});
 
 	entities_display(game);
 	particles_update(game, dt);
@@ -134,7 +67,7 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 	hotbar_put(game);
 	ft_circle(eng, eng->sel_spr->size / 2, 2, (t_color){0xFFFFFF});
 	ft_eng_sel_spr(eng, NULL);
-	ft_put_sprite_s(eng, game->cam.surface, (t_v2i){0}, 2);
+	ft_put_sprite_s(eng, game->cam.surface, (t_v2i){0, 0}, 2);
 	if (game->show_settings)
 		menu_display(eng, &game->menu);
 	else
@@ -159,7 +92,8 @@ int	main(int argc, char **argv)
 	t_data		data;
 
 	(void)argc;
-	eng = ft_eng_create(250 * 4, 130 * 4, "cube3D");
+	srand(time(NULL));
+	eng = ft_eng_create(250 * 4, 230 * 3, "cube3D");
 	if (eng)
 	{
 		if (!game_init(eng, &data, argv))
@@ -171,5 +105,7 @@ int	main(int argc, char **argv)
 			ft_putstr_fd("Error: Failed to initialise the game.\n", 1);
 		ft_eng_destroy(eng);
 	}
+	else
+		ft_putstr_fd("Error: Failed to initialise the engine.\n", 1);
 	return (0);
 }

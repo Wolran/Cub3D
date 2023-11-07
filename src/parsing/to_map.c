@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   to_map.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 17:24:53 by vmuller           #+#    #+#             */
-/*   Updated: 2023/10/21 02:17:51 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/02 18:29:51 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 #include "agrement.h"
 
 static inline int	__to_map_error(
-	t_engine *const eng,
 	t_pars *const pars,
 	t_map *const map,
 	char *const str)
 {
-	map_destroy(eng, map);
+	map_destroy(map);
 	return (pars_error(pars, str));
 }
 
@@ -53,10 +52,10 @@ static inline void	__pars_to_data(t_pars *const pars, t_map *const map)
 	t_v2i	pos;
 	char	*line;
 
-	map_fill(map, (t_v3i){0, 0, 0},
-		(t_v3i){pars->size[x], 30, pars->size[z]}, cell_wall);
 	map_fill(map, (t_v3i){0, 1, 0},
-		(t_v3i){pars->size[x], 1, pars->size[z]}, cell_void);
+		(t_v3i){pars->size[x], 30, pars->size[z]}, cell_wall);
+	map_fill(map, (t_v3i){0, 3, 0},
+		(t_v3i){pars->size[x], 3, pars->size[z]}, cell_void);
 	pos[y] = 0;
 	while (pos[y] < (int)vector_size(&pars->data))
 	{
@@ -65,9 +64,12 @@ static inline void	__pars_to_data(t_pars *const pars, t_map *const map)
 		while (line[pos[x]] && line[pos[x]] != '\n')
 		{
 			if (line[pos[x]] == '1')
-				map_set(map, (t_v3i){pos[x], 1, pos[y]}, cell_wall);
+				map_set(map, (t_v3i){pos[x], 3, pos[y]}, cell_wall);
 			else if (ft_strchr("0NSEW", line[pos[x]]))
+			{
 				map_set(map, (t_v3i){pos[x], 1, pos[y]}, cell_air);
+				map_set(map, (t_v3i){pos[x], 3, pos[y]}, cell_air);
+			}
 			pos[x]++;
 		}
 		pos[y]++;
@@ -81,26 +83,25 @@ static inline int	__pars_set_colors(
 {
 	map->sky_color = __get_color(pars->elements[5]);
 	if (map->sky_color.d == 0xFF000000)
-		return (__to_map_error(eng, pars, map, "invalid sky color format"));
+		return (__to_map_error(pars, map, "invalid sky color format"));
 	map->ground_color = __get_color(pars->elements[4]);
 	if (map->ground_color.d == 0xFF000000)
-		return (__to_map_error(eng, pars, map, "invalid ground color format"));
+		return (__to_map_error(pars, map, "invalid ground color format"));
 	map->sprites[4]
 		= load_tint_sprite(eng, "assets/ceilling.xpm", map->sky_color);
 	if (map->sprites[4] == NULL)
-		return (__to_map_error(eng, pars, map, "memory error on map creation"));
+		return (__to_map_error(pars, map, "memory error on ceilling image"));
 	map->sprites[5]
 		= load_tint_sprite(eng, "assets/floor.xpm", map->ground_color);
 	if (map->sprites[5] == NULL)
-		return (__to_map_error(eng, pars, map, "memory error on map creation"));
+		return (__to_map_error(pars, map, "memory error on floor image"));
 	map->spawn[x] = pars->spawn[x] + 0.5f;
-	map->spawn[y] = pars->spawn[y];
+	map->spawn[y] = pars->spawn[y] + 2.f;
 	map->spawn[z] = pars->spawn[z] + 0.5f;
 	return (0);
 }
 
 int	pars_to_map(
-	t_data *const game,
 	t_engine *const eng,
 	t_pars *const pars,
 	t_map *const map)
@@ -115,13 +116,11 @@ int	pars_to_map(
 	{
 		map->sprites[i] = ft_sprite_p(eng, pars->elements[i]);
 		if (map->sprites[i] == NULL)
-			return (__to_map_error(eng, pars, map,
-					"memory error on map creation"));
+			return (__to_map_error(pars, map, "memory error on textures"));
 		i++;
 	}
 	if (__pars_set_colors(eng, pars, map))
 		return (1);
 	__pars_to_data(pars, map);
-	map_agrement(game, map);
 	return (0);
 }

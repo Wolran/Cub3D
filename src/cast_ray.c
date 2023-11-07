@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:17:19 by vmuller           #+#    #+#             */
-/*   Updated: 2023/10/15 14:02:54 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/07 12:27:04 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static inline void	__setup_ray_step_delta_dist(
 
 static inline void	__setup_ray(
 	t_ray *const ray,
-	t_v3f *const pos,
-	t_v3f *const dir)
+	t_v3f const *const pos,
+	t_v3f const *const dir)
 {
 	ray->pos = (t_v3i){(*pos)[x], (*pos)[y], (*pos)[z]};
 	ray->dir = *dir;
@@ -89,13 +89,13 @@ static inline void	__loop_ray(
 
 t_ray	cast_ray(
 	t_map *const map,
-	t_v3f *const pos,
-	t_v3f *const dir,
+	t_v3f const pos,
+	t_v3f const dir,
 	float const max_dist)
 {
 	t_ray	ray;
 
-	__setup_ray(&ray, pos, dir);
+	__setup_ray(&ray, &pos, &dir);
 	__loop_ray(map, &ray, max_dist);
 	return (ray);
 }

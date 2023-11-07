@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 08:05:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/13 11:26:11 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/07 07:57:33 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,19 @@ t_entity	*entity_add(t_data *const game, t_v3f const pos)
 {
 	t_entity	*ent;
 
-	if (vector_resize(&game->entities, game->entities.size + 1))
+	ent = vector_addback(&game->entities, &(t_entity){0});
+	if (ent == NULL)
 		return (NULL);
-	ent = vector_get(&game->entities, game->entities.size - 1);
-	*ent = (t_entity){0};
 	ent->update = &_entity_update;
 	ent->display = &_entity_display;
 	ent->destroy = &_entity_destroy;
 	ent->data = NULL;
-	ent->pos = pos;
 	ent->dir = (t_v3f){0};
 	ent->rot = (t_v2f){0};
+	ent->aabb = (t_aabb){pos, {0}, AABB_NONE};
 	ent->mesh = &game->models[0];
 	ent->time_alive = 0.0f;
+	ent->collided = ENTITY_NONE;
 	ent->uuid = 0ul;
 	ent->type = ENTITY_GENERIC;
 	return (ent);

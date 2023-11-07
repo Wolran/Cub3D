@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:26:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/13 09:06:03 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:47:14 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	menu_settings_fog_create(t_engine *const eng, t_data *const data)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
 	if (p_gui == NULL)
-		return (gui_destroy(eng, &gui), 1);
+		return (gui_destroy(&gui), 1);
 	gui_add_button(p_gui, "<<", &__menu_to_settings, &data->menu.selected);
 	gui_add_text(p_gui, NULL);
 	gui_add_check(p_gui, "fog", &data->cam.fog);
@@ -82,7 +82,7 @@ int	menu_settings_control_create(t_engine *const eng, t_data *const data)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
 	if (p_gui == NULL)
-		return (gui_destroy(eng, &gui), 1);
+		return (gui_destroy(&gui), 1);
 	gui_add_button(p_gui, "<<", &__menu_to_settings, &data->menu.selected);
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, "move forward  : W");
@@ -107,16 +107,16 @@ int	menu_settings_player_create(t_engine *const eng, t_data *const data)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
 	if (p_gui == NULL)
-		return (gui_destroy(eng, &gui), 1);
+		return (gui_destroy(&gui), 1);
 	gui_add_button(p_gui, "<<", &__menu_to_settings, &data->menu.selected);
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, "player position:");
-	gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos),
-		.f_v_mi = 0.0f, .f_v_ma = data->map.size[x] - 1.0f, .type = 0});
-	gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos) + 1,
-		.f_v_mi = 0.0f, .f_v_ma = data->map.size[y] - 1.0f, .type = 0});
-	gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos) + 2,
-		.f_v_mi = 0.0f, .f_v_ma = data->map.size[z] - 1.0f, .type = 0});
+	// gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos),
+	// 	.f_v_mi = 0.0f, .f_v_ma = data->map.size[x] - 1.0f, .type = 0});
+	// gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos) + 1,
+	// 	.f_v_mi = 0.0f, .f_v_ma = data->map.size[y] - 1.0f, .type = 0});
+	// gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->box.pos) + 2,
+	// 	.f_v_mi = 0.0f, .f_v_ma = data->map.size[z] - 1.0f, .type = 0});
 	gui_add_text(p_gui, "player rotation:");
 	gui_add_slider(p_gui, (t_gui_data){.f_v = ((float *)&data->cam.rot),
 		.f_v_mi = -M_PI, .f_v_ma = M_PI, .type = 0});
@@ -139,7 +139,7 @@ int	menu_settings_create(t_engine *const eng, t_data *const data)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
 	if (p_gui == NULL)
-		return (gui_destroy(eng, &gui), 1);
+		return (gui_destroy(&gui), 1);
 	gui_add_text(p_gui, NULL);
 	gui_add_button(p_gui, "camera settings", &__menu_to_fog, &data->menu.selected);
 	gui_add_button(p_gui, "control settings", &__menu_to_control, &data->menu.selected);
@@ -162,7 +162,7 @@ int	menu_main_create(t_engine *const eng, t_data *const data)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
 	if (p_gui == NULL)
-		return (gui_destroy(eng, &gui), 1);
+		return (gui_destroy(&gui), 1);
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, "play :");
 	gui_add_button(p_gui, "-loaded map", &__menu_to_fog, &data->menu.selected);
