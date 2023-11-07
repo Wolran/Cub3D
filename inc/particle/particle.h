@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 09:31:26 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/14 21:59:58 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/10/30 15:49:35 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,15 @@ t_particle	*p_fire_explosion_add(
 				t_data *const game,
 				t_v3f const pos);
 
+t_particle	*p_block_add(
+				t_data *const game,
+				t_v3f const pos);
+
 struct s_particle
 {
 	t_v3f		pos;
 	t_v3f		dir;
+	float		force;
 	t_sprite	*spr;
 	float		time_alive;
 	float		death_time;

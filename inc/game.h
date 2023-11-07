@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/15 23:46:18 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/06 01:38:37 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "aabb.h"
 # include "model.h"
 # include "holding.h"
-# include "minimap.h"
 # include "inventory.h"
+# include "minimap.h"
 
 int		game_init(t_engine *const eng, t_data *const game, char **argv);
 
@@ -40,7 +40,6 @@ struct s_data
 	float		*depth_buffer;
 	t_sprite	*minimap;
 	t_camera	cam;
-	t_aabb		box;
 	t_menu		menu;
 	size_t		tick;
 	float		sensitivity;

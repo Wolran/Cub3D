@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   agrement.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 11:57:42 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/21 02:26:20 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/10/01 04:30:28 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ typedef struct s_room	t_room;
 
 //TODO HANDLE ROOM SAVING AND ADDING RANDOM ITEMS TO THEM
 
-int		map_gen_doors(t_data *const game, t_map *const map, t_v3i const pos);
-int		map_gen_rooms(t_data *const game, t_map *const map, t_v3i const pos);
-int		map_gen_merge_rooms(t_data *const game, t_map *const map, t_v3i const pos);
-int		map_gen_elevate_rooms(t_data *const game, t_map *const map, t_v3i const pos);
+int		map_gen_doors(t_map *const map, t_v3i const pos);
+int		map_gen_rooms(t_map *const map, t_v3i const pos);
+int		map_gen_merge_rooms(t_map *const map, t_v3i const pos);
+int		map_gen_elevate_rooms(t_map *const map, t_v3i const pos);
 
-void	map_agrement(t_data *const game, t_map *const map);
+void	map_agrement(t_map *const map);
 
 struct s_door
 {

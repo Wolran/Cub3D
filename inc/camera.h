@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/23 18:18:43 by vmuller           #+#    #+#             */
-/*   Updated: 2023/09/19 14:43:06 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/10/26 13:44:42 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,14 @@ struct s_camera
 	int			fog;
 	t_color		fog_color;
 	float		fog_distance;
-	float		screen_ratio;
 	t_sprite	*surface;
 	float		*depth_buffer;
+	t_vector	poly_raw;
+	t_vector	poly_clip;
 };
 
 t_camera	camera_create(t_engine *const eng, t_v2i const surface);
-void		camera_destroy(t_engine *const eng, t_camera *const cam);
+void		camera_destroy(t_camera *const cam);
 
 void		camera_update(t_camera *const cam);
 

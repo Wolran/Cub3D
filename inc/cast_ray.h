@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/29 11:08:35 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/09/29 23:35:19 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/10/28 11:00:18 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ typedef struct s_ray	t_ray;
 
 t_ray	cast_ray(
 			t_map *const map,
-			t_v3f *const pos,
-			t_v3f *const dir,
+			t_v3f const pos,
+			t_v3f const dir,
 			float const max_dist);
 
 struct s_ray

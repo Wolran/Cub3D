@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap.h                                          :+:      :+:    :+:   */
+/*   player.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/13 23:36:43 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/07/14 10:24:16 by alde-fre         ###   ########.fr       */
+/*   Created: 2023/10/19 14:30:16 by alde-fre          #+#    #+#             */
+/*   Updated: 2023/10/19 16:05:25 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIMAP_H
-# define MINIMAP_H
+#ifndef PLAYER_H
+# define PLAYER_H
 
 # include "game.h"
-# include "camera.h"
+# include "entity/entity.h"
 
-void	minimap_display(
-			t_engine *const eng,
-			t_map *const map,
-			t_camera *const cam,
-			t_sprite *const minimap);
+void	player_control(
+			t_entity *const self,
+			t_data *const game,
+			double const dt);
 
 #endif
