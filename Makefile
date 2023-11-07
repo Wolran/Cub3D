@@ -45,6 +45,8 @@ SRC		=	main.c \
 			map/agrement/doors.c \
 			map/agrement/rooms.c \
 			map/agrement/elevate.c \
+			map/generation/all.c \
+			map/generation/rooms.c \
 			 \
 			render/raycaster.c \
 			render/reflection.c \
@@ -61,14 +63,12 @@ SRC		=	main.c \
 			holding/holding.c \
 			 \
 			camera.c \
-			\
-			collisions.c \
 			 \
 			menu/manager.c \
 			menu/settings.c \
-			\
+			 \
 			minimap.c \
-			\
+			 \
 			mesh/load.c \
 			mesh/destroy.c \
 			mesh/parse.c \
@@ -79,12 +79,18 @@ SRC		=	main.c \
 			mesh/rasteriser.c \
 			mesh/utils.c \
 			mesh/transform.c \
-			\
+			 \
 			entity/manager.c \
+			entity/collisions.c \
 			entity/generic/manager.c \
+			entity/player/manager.c \
+			entity/player/controls.c \
 			entity/fireball/manager.c \
+			entity/mimic/manager.c \
 			entity/door/manager.c \
-			\
+			entity/spike/manager.c \
+			entity/enemy/manager.c \
+			 \
 			particle/manager.c \
 			particle/generic.c \
 
@@ -107,13 +113,13 @@ DEPENDS := $(patsubst %.o,%.d,$(OBJ))
 
 # compiler
 CC		= cc
-CFLAGS	= -MMD -MP -Wall -Wextra -Werror -pg
+CFLAGS	= -MMD -MP -Wall -Wextra -Werror -g3
 
 # engine library
 ENGINE		= ./engine/
-ENGINE_LIB	= $(addprefix $(ENGINE),libengine.a)
+ENGINE_LIB	= $(addprefix $(ENGINE), libengine.a)
 ENGINE_INC	= -I ./engine/inc
-ENGINE_LNK	= -l Xext -l X11 -l Xfixes -L ./engine -l engine -l m  -pg
+ENGINE_LNK	= -l Xext -l X11 -l Xfixes -L ./engine -l engine -l m
 
 all: obj $(ENGINE_LIB) $(NAME)
 
