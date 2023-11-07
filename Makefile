@@ -93,6 +93,8 @@ SRC		=	main.c \
 			 \
 			particle/manager.c \
 			particle/generic.c \
+			 \
+			title/manager.c \
 
 INC		=	vec3.h \
 			camera.h \
@@ -105,6 +107,7 @@ INC		=	vec3.h \
 			menu.h \
 			game.h \
 			model.h \
+			title.h \
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

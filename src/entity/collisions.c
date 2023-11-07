@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:47:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 10:33:27 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/07 14:51:42 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static inline t_v3f	__vec_normal(
 		norm[x] = vel[x];
 	else if (abs[y] > abs[x] && abs[y] > abs[z])
 		norm[y] = vel[y];
-	else /* if (abs[z] > abs[x] && abs[z] > abs[y]) */
+	else
 		norm[z] = vel[z];
 	return (norm);
 }

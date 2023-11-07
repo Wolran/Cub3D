@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/06 01:38:37 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:22:03 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "holding.h"
 # include "inventory.h"
 # include "minimap.h"
+# include "title.h"
 
 int		game_init(t_engine *const eng, t_data *const game, char **argv);
 
@@ -50,6 +51,7 @@ struct s_data
 	int			selected_model;
 	t_vector	entities;
 	t_vector	particles;
+	t_title		title;
 };
 
 #endif

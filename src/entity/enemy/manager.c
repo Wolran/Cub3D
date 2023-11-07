@@ -6,11 +6,12 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 12:48:40 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/07 16:00:47 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
+#include "title.h"
 
 int	can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box)
 {
@@ -25,7 +26,6 @@ int	can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box)
 int is_point_on_screen(t_data *const game, t_v3f const pos, t_aabb *const box)
 {
 	t_v3f const	on_screen = project_point(pos, &game->cam);
-	// t_v3f const	diff = game->cam.pos - pos;
 
 	if (can_see_aabb(game, pos, box) == 0
 		|| (on_screen[x] < 0.0f || on_screen[y] < 0.0f
@@ -71,20 +71,26 @@ static void	_enemy_update(
 	const t_v3f		diff = player_center - self_center;
 	const float		dist = v3fmag(diff);
 
+	self->aabb.type = AABB_IMMOVABLE;
 	if (is_entity_on_screen(game, self) == 0)
 	{
 		self->rot[x] = atan2f(diff[z], diff[x]);
-		if (self->dir[x] <= 0.5f && dist < 2.0f)
+		if (dist < 2.0f && can_see_aabb(game, self_center, &player->aabb))
+			title_put(&game->title, g_titles[0], 3.0f);
+		if (self->dir[x] <= 0.5f && dist < 1.0f)
 		{
 			self->dir[x] = 5.0f;
 			enemy_attack(game, self);
 		}
-		else if (dist > 2.0f)
+		else if (dist > 1.0f)
+		{
 			self->vel = v3fnorm(diff + (t_v3f){0.f, -diff[y]
 					+ 0.0001f, 0.f}, dt * fmaxf(fminf(dist - (2.f - 1.2f), 7.f), 1.2f));
+			self->aabb.type = AABB_MOVABLE;
+		}
 	}
 	if (self->dir[x] > 0.0f)
-	self->dir[x] = fmaxf(self->dir[x] - dt, 0.0f);
+		self->dir[x] = fmaxf(self->dir[x] - dt, 0.0f);
 }
 
 static void	_enemy_display(t_entity *const self, t_data *const game)
@@ -116,7 +122,7 @@ t_entity	*e_enemy_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->aabb.type = AABB_MOVABLE;
 	ent->dir = (t_v3f){0.f};
 	ent->rot = rot;
-	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, {.3f, .85f, .3f}, AABB_MOVABLE};
+	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, {.3f, .85f, .3f}, AABB_IMMOVABLE};
 	ent->mesh = &game->models[10];
 	ent->type = ENTITY_ENEMY;
 	return (ent);
