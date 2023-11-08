@@ -6,9 +6,10 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 07:50:47 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/06 07:18:20 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/08 19:44:45 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef ENTITY_H
 # define ENTITY_H
 
@@ -31,13 +32,18 @@ enum e_entity
 	ENTITY_MIMIC,
 	ENTITY_DOOR,
 	ENTITY_SPIKE,
-	ENTITY_ENEMY,
+	ENTITY_ENEMY_SCP,
+	ENTITY_ENEMY_FISH,
 };
 
 void	entities_update(t_data *const game, float const dt);
 void	entities_collisions(t_data *const game);
 void	entities_display(t_data *const game);
 void	entities_destroy(t_data *const game);
+
+int		can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box);
+int		is_point_on_screen(t_data *const game, t_v3f const pos, t_aabb *const box);
+int		is_entity_on_screen(t_data *const game, t_entity *const entity);
 
 struct s_entity
 {

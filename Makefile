@@ -82,6 +82,7 @@ SRC		=	main.c \
 			 \
 			entity/manager.c \
 			entity/collisions.c \
+			entity/aabb_screen.c \
 			entity/generic/manager.c \
 			entity/player/manager.c \
 			entity/player/controls.c \
@@ -89,7 +90,8 @@ SRC		=	main.c \
 			entity/mimic/manager.c \
 			entity/door/manager.c \
 			entity/spike/manager.c \
-			entity/enemy/manager.c \
+			entity/enemy/manager_scp.c \
+			entity/enemy/manager_fish.c \
 			 \
 			particle/manager.c \
 			particle/generic.c \

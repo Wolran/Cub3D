@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 10:39:18 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/08 20:23:12 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ static int	__models_init(t_engine *const eng, t_data *const game)
 	game->models[3] = mesh_load(eng, "models/items/pickaxe.obj");
 	game->models[4] = mesh_load(eng, "models/items/hand.obj");
 	game->models[5] = mesh_load(eng, "models/chest/open.obj");
-	game->models[6] = mesh_load(eng, "models/candle.obj");
+	game->models[6] = mesh_load(eng, "models/fish_body.obj");
 	game->models[7] = mesh_load(eng, "models/doors/single_door.obj");
 	game->models[8] = mesh_load(eng, "models/denis.obj");
 	game->models[9] = mesh_load(eng, "models/scythe.obj");
 	game->models[10] = mesh_load(eng, "models/173.obj");
-	game->models[11] = (t_mesh){0};
+	game->models[11] = mesh_load(eng, "models/spike.obj");
+	game->models[12] = (t_mesh){0};
 	return (0);
 }
 
