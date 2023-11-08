@@ -6,7 +6,7 @@
 #    By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/02 16:35:41 by vmuller           #+#    #+#              #
-#    Updated: 2023/11/02 19:30:55 by vmuller          ###   ########.fr        #
+#    Updated: 2023/11/09 00:33:35 by vmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ DEPENDS := $(patsubst %.o,%.d,$(OBJ))
 
 
 # compiler
-CC		= clang
+CC		= cc
 CFLAGS	= -MMD -MP -Wall -Wextra -Werror
 
 # engine library
