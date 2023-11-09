@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 08:05:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 05:20:10 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/09 05:19:54 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static inline void	__door_loop(
 	}
 }
 
+//make gravity when i press space
+
 static void	_player_update(
 				t_entity *const self,
 				t_data *const game,
@@ -48,6 +50,17 @@ static void	_player_update(
 	player_control(self, game, dt);
 	if (ft_mouse(game->eng, 3).pressed)
 		__door_loop(game, self);
+	if (self->aabb.pos[y] > 0.f)
+	{
+		self->vel[y] += self->dir[x] ;
+		self->dir[x] -=  dt * 0.5f;
+	}
+	if (ft_key(game->eng, XK_space).pressed)
+	{
+		self->vel[y] = 0.5f;
+	}
+	
+	
 }
 
 static void	_player_display(t_entity *const self, t_data *const game)

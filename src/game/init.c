@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/08 20:23:12 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 03:33:59 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ int	game_init(t_engine *const eng, t_data *const game, char **argv)
 	e_player_add(game, game->map.spawn + (t_v3f){0.f, .5f, 0.f});
 	map_agrement(&game->map);
 	map_generate(game);
+	e_enemy_fish_add(game, game->map.spawn + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
 	return (0);
 }

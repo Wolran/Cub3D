@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/08 20:54:25 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 05:36:59 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,45 @@ static void	_enemy_fish_update(
 	(void) dt;
 }
 
+t_transform	*init_trans(t_transform *trans, 
+						t_v2f const rot, 
+						t_v3f const resize, 
+						t_v3f const translation)
+{	
+	trans->rotation = rot;
+	trans->resize = resize;
+	trans->translation = translation;
+	return (trans);
+}
+
+
 static void	_enemy_fish_display(t_entity *const self, t_data *const game)
 {
 	t_transform	trans;
+	t_v3f		slide;
+	t_v3f const	dir = v3frot((t_v3f){.3f}, self->rot);
 
-	trans.rotation = self->rot + (t_v2f){M_PI_2, 0.0f};
-	trans.resize = (t_v3f){1.1f, 1.1f, 1.1f};
-	trans.translation = self->aabb.pos + (t_v3f){.15f, .0f, .15f};
+	slide = v3frot((t_v3f){.3f, 0.f, 0.f}, self->rot); 
+
+	init_trans(&trans, self->rot, (t_v3f){0.2f, 0.2f, 0.2f}, \
+		self->aabb.pos + self->aabb.dim / 2.f);
+	mesh_put(game->eng, &game->cam, trans, &game->models[3]);
+	
+	init_trans(&trans, trans.rotation ,  (trans.resize * 0.7f), \
+		(trans.translation + (3.0f * dir * slide )));
 	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
-	self->dead = 1;
+
+	init_trans(&trans, trans.rotation, (trans.resize * 0.7f), \
+		(trans.translation + (0.5f * slide)));
+	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
+	
+	init_trans(&trans, trans.rotation, (trans.resize * 0.7f), \
+		(trans.translation + (0.4f * slide)));
+	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
+	
+	init_trans(&trans, trans.rotation, (trans.resize * 0.7f), \
+		(trans.translation + (0.2f * slide)));
+	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
 }
 
 static void	_enemy_fish_destroy(t_entity *const self, t_data *const game)

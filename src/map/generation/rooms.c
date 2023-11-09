@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:55:20 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/08 19:50:31 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 03:34:20 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,6 @@ static inline void	__fill_medium_room(t_data *const game, t_vector *const room)
 {
 	t_v3f	pos;
 
-	pos = v3itof(*(t_v3i *)vector_erase(room, rand() % room->size));
-	e_enemy_fish_add(game, pos + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
 	pos = v3itof(*(t_v3i *)vector_erase(room, rand() % room->size));
 	e_mimic_add(game, pos + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
 	pos = v3itof(*(t_v3i *)vector_erase(room, rand() % room->size));

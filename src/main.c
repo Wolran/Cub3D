@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 15:44:31 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 03:32:52 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 
 	entities_display(game);
 	particles_update(game, dt);
+	
 
 	if (game->cam.fog)
 		shader_apply_depth(&game->cam);
