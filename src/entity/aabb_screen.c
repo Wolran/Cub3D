@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:47:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/09 09:10:00 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 23:54:58 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box, float c
 	float		mdist;
 
 	return (ray_box_intersection(pos, diff, *box, &mdist)
-		&& cast_ray(&game->map, pos, diff, 99999.f).dist > dist);
+		&& cast_ray(&game->map, pos, diff, 99999.f).dist >= mdist);
 }
 
 int is_point_on_screen(t_data *const game, t_v3f const pos, t_aabb *const box)
