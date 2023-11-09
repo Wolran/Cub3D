@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/09 03:33:59 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 08:44:59 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	__models_init(t_engine *const eng, t_data *const game)
 	game->models[9] = mesh_load(eng, "models/scythe.obj");
 	game->models[10] = mesh_load(eng, "models/173.obj");
 	game->models[11] = mesh_load(eng, "models/spike.obj");
-	game->models[12] = (t_mesh){0};
+	game->models[12] = mesh_load(eng, "models/rope.obj");
+	game->models[13] = (t_mesh){0};
 	return (0);
 }
 
@@ -81,6 +82,7 @@ int	game_init(t_engine *const eng, t_data *const game, char **argv)
 	e_player_add(game, game->map.spawn + (t_v3f){0.f, .5f, 0.f});
 	map_agrement(&game->map);
 	map_generate(game);
-	e_enemy_fish_add(game, game->map.spawn + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
+	//e_enemy_fish_add(game, game->map.spawn + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
+	e_rope_add(game, game->map.spawn +  (t_v3f){.7f, .0f, .7f}, (t_v2f){0.0f, 0.f});
 	return (0);
 }

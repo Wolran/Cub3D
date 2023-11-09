@@ -90,6 +90,7 @@ SRC		=	main.c \
 			entity/mimic/manager.c \
 			entity/door/manager.c \
 			entity/spike/manager.c \
+			entity/rope/manager.c \
 			entity/enemy/manager_scp.c \
 			entity/enemy/manager_fish.c \
 			 \

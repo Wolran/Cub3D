@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:18:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/07 15:50:04 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 08:50:45 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ typedef struct s_title t_title;
 
 static char const *const g_titles[] =
 {
-	"Un frisson vous parcourt l'echine...",
+	"A terrible chill runs up your spine !",
+	"You have retrieved the rope, go towards the exit!",
 };
 
 struct s_title

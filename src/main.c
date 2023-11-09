@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/09 03:32:52 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 08:37:43 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.5f, .125f, 0.f}}, &game->models[3]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.75f, .125f, 0.f}}, &game->models[4]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){1.0f, .125f, 0.f}}, &game->models[5]);
-
 	entities_display(game);
 	particles_update(game, dt);
 	

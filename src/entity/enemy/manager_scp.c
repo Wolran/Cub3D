@@ -6,13 +6,12 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/08 19:52:39 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 09:06:52 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
 #include "title.h"
-
 
 static void	_enemy_scp_attack(t_data *const game, t_entity *const self)
 {
@@ -40,7 +39,7 @@ static void	_enemy_scp_update(
 	const float		dist = v3fmag(diff);
 
 	self->aabb.type = AABB_IMMOVABLE;
-	if (dist < 1.5f && can_see_aabb(game, self_center, &player->aabb) && is_entity_on_screen(game, self) == 0)
+	if (dist < 1.5f && can_see_aabb(game, self_center, &player->aabb, 99999.0f) && is_entity_on_screen(game, self) == 0)
 	{
 		title_put(&game->title, g_titles[0], 0.5f);
 		if (self->dir[y] >= 1.0f)

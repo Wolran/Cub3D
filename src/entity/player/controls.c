@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:30:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/09 04:58:38 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 06:27:01 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static inline void	__player_move(
 		vel += (t_v3f){-dir[z], 0.f, dir[x]};
 	if (eng->keys[K_LEFT])
 		vel -= (t_v3f){-dir[z], 0.f, dir[x]};
-	// if (eng->keys[XK_space])
-	// 	vel[y] = vel[y] + 1.f;
+	if (eng->keys[XK_space])
+		vel[y] = vel[y] + 1.f;
 	if (eng->keys[XK_Shift_L])
 		vel[y] = vel[y] - 1.f;
 	self->vel = v3fnorm(vel, dt * 2.f);

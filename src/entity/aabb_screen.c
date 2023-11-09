@@ -6,19 +6,19 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 17:47:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/08 18:07:23 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/09 09:10:00 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "entity/entity.h"
 
-int	can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box)
+int	can_see_aabb(t_data *const game, t_v3f const pos, t_aabb *const box, float const dist)
 {
 	const t_v3f	self_center = box->pos + box->dim / 2.f;
-	const t_v3f	diff = self_center - pos;
-	float		dist;
+	const t_v3f	diff = v3fnorm(self_center - pos, dist);
+	float		mdist;
 
-	return (ray_box_intersection(pos, diff, *box, &dist)
+	return (ray_box_intersection(pos, diff, *box, &mdist)
 		&& cast_ray(&game->map, pos, diff, 99999.f).dist > dist);
 }
 
@@ -26,7 +26,7 @@ int is_point_on_screen(t_data *const game, t_v3f const pos, t_aabb *const box)
 {
 	t_v3f const	on_screen = project_point(pos, &game->cam);
 
-	if (can_see_aabb(game, pos, box) == 0
+	if (can_see_aabb(game, pos, box, 99999.f) == 0
 		|| (on_screen[x] < 0.0f || on_screen[y] < 0.0f
 		|| on_screen[x] >= (float)game->cam.surface->size[x]
 		|| on_screen[y] >= (float)game->cam.surface->size[y]
