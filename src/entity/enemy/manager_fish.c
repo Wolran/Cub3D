@@ -6,13 +6,12 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/10 03:57:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 05:12:04 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
 #include "particle/particle.h"
-
 
 static void	_enemy_fish_part(
 			t_particle	*part,
@@ -31,7 +30,6 @@ static void	_enemy_fish_part(
 	part->spr = game->sprites[5];
 	part->death_time = ft_rand(.5f, 0.7f);
 }
-
 
 static void	_enemy_fish_update(
 			t_entity *const self,
@@ -59,7 +57,6 @@ static void	_enemy_fish_update(
 	}
 	self->dir[y] += dt;
 }
-
 
 static void	_enemy_fish_display(t_entity *const self, t_data *const game)
 {
@@ -99,4 +96,3 @@ t_entity	*e_enemy_fish_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->type = ENTITY_ENEMY_FISH;
 	return (ent);
 }
-

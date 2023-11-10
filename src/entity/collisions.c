@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:47:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 03:39:52 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/10 05:10:26 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	aabb_solve(
 	return (1);
 }
 
-static t_v3i const g_off_pos[] = {
+static t_v3i const	g_off_pos[] = {
 {-1, 0, 0},
 {1, 0, 0},
 {0, -1, 0},
@@ -130,7 +130,7 @@ static inline void	__ent_loop(
 	while (index < entities->size)
 	{
 		if (self != ent && ent->aabb.type != AABB_NONE
-			&& !((self->type == ENTITY_PLAYER && ent->type == ENTITY_FIREBALL)
+			&& !((self->type == ENTITY_PLAYER && ent->type == ENTITY_FIREBALL) \
 			|| (ent->type == ENTITY_PLAYER && self->type == ENTITY_FIREBALL))
 			&& aabb_solve(&self->aabb, &self->vel, &ent->aabb, &ent->vel)
 			&& self->collided == ENTITY_NONE)

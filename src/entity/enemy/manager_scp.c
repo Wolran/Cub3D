@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:01:14 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 05:11:43 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,3 @@ t_entity	*e_enemy_scp_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->type = ENTITY_ENEMY_SCP;
 	return (ent);
 }
-

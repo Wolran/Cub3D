@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   settings.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 15:26:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/26 13:47:14 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/10 05:27:16 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	menu_settings_fog_create(t_engine *const eng, t_data *const data)
 	t_gui	gui;
 	t_gui	*p_gui;
 
-	gui = gui_create(eng, (t_v2i){10, 10}, (t_v2i){300, 314}, "Settings/camera");
+	gui = gui_create(eng, (t_v2i){10, 10}, \
+		(t_v2i){300, 314}, "Settings/camera");
 	if (gui.objects.data == NULL)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
@@ -77,7 +78,8 @@ int	menu_settings_control_create(t_engine *const eng, t_data *const data)
 	t_gui	gui;
 	t_gui	*p_gui;
 
-	gui = gui_create(eng, (t_v2i){10, 10}, (t_v2i){350, 290}, "Settings/controls");
+	gui = gui_create(eng, (t_v2i){10, 10}, \
+		(t_v2i){350, 290}, "Settings/controls");
 	if (gui.objects.data == NULL)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
@@ -102,7 +104,8 @@ int	menu_settings_player_create(t_engine *const eng, t_data *const data)
 	t_gui	gui;
 	t_gui	*p_gui;
 
-	gui = gui_create(eng, (t_v2i){10, 10}, (t_v2i){300, 246}, "Settings/player");
+	gui = gui_create(eng, (t_v2i){10, 10}, \
+		(t_v2i){300, 246}, "Settings/player");
 	if (gui.objects.data == NULL)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
@@ -133,7 +136,6 @@ int	menu_settings_create(t_engine *const eng, t_data *const data)
 	menu_settings_fog_create(eng, data);
 	menu_settings_control_create(eng, data);
 	menu_settings_player_create(eng, data);
-
 	gui = gui_create(eng, (t_v2i){10, 10}, (t_v2i){300, 320}, "Settings");
 	if (gui.objects.data == NULL)
 		return (1);
@@ -141,13 +143,15 @@ int	menu_settings_create(t_engine *const eng, t_data *const data)
 	if (p_gui == NULL)
 		return (gui_destroy(&gui), 1);
 	gui_add_text(p_gui, NULL);
-	gui_add_button(p_gui, "camera settings", &__menu_to_fog, &data->menu.selected);
-	gui_add_button(p_gui, "control settings", &__menu_to_control, &data->menu.selected);
-	gui_add_button(p_gui, "player settings", &__menu_to_player, &data->menu.selected);
+	gui_add_button(p_gui, "camera settings", &__menu_to_fog, \
+		&data->menu.selected);
+	gui_add_button(p_gui, "control settings", &__menu_to_control, \
+		&data->menu.selected);
+	gui_add_button(p_gui, "player settings", &__menu_to_player, \
+		&data->menu.selected);
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, "selected model:");
-	gui_add_slider(p_gui,
-		(t_gui_data){.i_v = &data->selected_model,
+	gui_add_slider(p_gui, (t_gui_data){.i_v = &data->selected_model,
 		.i_v_mi = 0, .i_v_ma = 7, .type = 1});
 	return (0);
 }
@@ -157,7 +161,8 @@ int	menu_main_create(t_engine *const eng, t_data *const data)
 	t_gui	gui;
 	t_gui	*p_gui;
 
-	gui = gui_create(eng, (t_v2i){10, 10}, (t_v2i){300, 250}, "Cub3D (basique comme toujours)");
+	gui = gui_create(eng, (t_v2i){10, 10}, \
+		(t_v2i){300, 250}, "Cub3D (basique comme toujours)");
 	if (gui.objects.data == NULL)
 		return (1);
 	p_gui = menu_add(&data->menu, &gui);
@@ -166,8 +171,10 @@ int	menu_main_create(t_engine *const eng, t_data *const data)
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, "play :");
 	gui_add_button(p_gui, "-loaded map", &__menu_to_fog, &data->menu.selected);
-	gui_add_button(p_gui, "-random labyrinth", &__menu_to_control, &data->menu.selected);
-	gui_add_button(p_gui, "-random dungeon", &__menu_to_player, &data->menu.selected);
+	gui_add_button(p_gui, "-random labyrinth", \
+		&__menu_to_control, &data->menu.selected);
+	gui_add_button(p_gui, "-random dungeon", \
+		&__menu_to_player, &data->menu.selected);
 	gui_add_text(p_gui, NULL);
 	gui_add_text(p_gui, NULL);
 	gui_add_button(p_gui, "QUIT GAME", &__menu_to_fog, &data->map);

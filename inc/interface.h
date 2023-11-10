@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   interface.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 15:23:29 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/10/26 13:43:31 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/10 05:37:47 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef struct s_gui_data		t_gui_data;
 typedef struct s_gui_obj		t_gui_obj;
 typedef void					(*t_obj_meth)(void *const data);
 
-static t_v2i const	g_gui_offset = {2, 24};
-static t_v2i const	g_gui_obj_size = {0, 22};
-static t_v2i const	g_gui_obj_offset = {2, 2};
+static t_v2i const				g_gui_offset = {2, 24};
+static t_v2i const				g_gui_obj_size = {0, 22};
+static t_v2i const				g_gui_obj_offset = {2, 2};
 
 struct s_gui_container
 {

@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 04:10:25 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 05:11:01 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static void	_spike_display(t_entity *const self, t_data *const game)
 	float		value;
 
 	value = fmaxf(self->time_alive - self->dir[x], 0.0f);
-
 	trans.rotation = self->rot;
 	trans.resize = (t_v3f){.2f, .2f, .2f};
 	trans.translation = self->aabb.pos;

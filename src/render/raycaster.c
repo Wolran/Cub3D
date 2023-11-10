@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycaster.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 13:49:15 by vmuller           #+#    #+#             */
-/*   Updated: 2023/10/29 16:32:33 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/10 05:31:44 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,14 @@ t_color	ray_to_pixel(
 	spr = map->sprites[get_real_side(ray)];
 	get_tex_pos(ray, &tex_pos);
 	if (block == cell_wall)
-		color = ft_get_color(spr,
-				(t_v2i){tex_pos[x] * spr->size[x], tex_pos[y] * spr->size[y]});
+		color = ft_get_color(spr, \
+			(t_v2i){tex_pos[x] * spr->size[x], tex_pos[y] * spr->size[y]});
 	else if (block == cell_door_x)
 		color = ft_color_f(0.f, fabsf(tex_pos[x] - .5f) * 4.f,
 				0.f, fabsf(tex_pos[y] - .5f));
 	else if (block == cell_door_z)
 		color = ft_color_f(0.f, fabsf(tex_pos[x] - .5f),
 				0.f, fabsf(tex_pos[y] - .5f) * 4.f);
-	else if (block >= 2048)
-		color = ft_color(0, (block - 2048), 126, 255 - (block - 2048) * 10);
 	else
 		color = (t_color){0};
 	if (color.a > 0 && reflections < 2)
