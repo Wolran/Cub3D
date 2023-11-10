@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 08:20:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/09 09:11:25 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:12 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,14 @@ static void	_rope_update(
 			t_data *const game,
 			float const dt)
 {
+	t_entity *const	player = game->entities.data;
+
 	(void)dt;
-	t_entity *const player = game->entities.data;
-	if ((ft_mouse(game->eng, 3).pressed) && can_see_aabb(game, player->aabb.pos, &self->aabb, 1.0f))
+	if ((ft_mouse(game->eng, 3).pressed) && \
+	can_see_aabb(game, player->aabb.pos, &self->aabb, 1.0f))
 	{
 		game->selected_model = 12;
+		title_put(&game->title, g_titles[1], 2.5f);
 		self->dead = 1;
 	}
 }

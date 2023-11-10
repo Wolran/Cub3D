@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/08 19:31:30 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:10:25 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static void	_spike_display(t_entity *const self, t_data *const game)
 	trans.rotation = self->rot;
 	trans.resize = (t_v3f){.2f, .2f, .2f};
 	trans.translation = self->aabb.pos;
-	trans.translation[y] = self->aabb.pos[y] + fminf(sinf(value / 2.f * M_PI) * 2.f, 0.25f) * 0.5f - 0.25f;
+	trans.translation[y] = self->aabb.pos[y] + \
+	fminf(sinf(value / 2.f * M_PI) * 2.f, 0.25f) * 0.5f - 0.25f;
 	mesh_put(game->eng, &game->cam, trans, &game->models[11]);
 }
 

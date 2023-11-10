@@ -6,25 +6,32 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/09 23:53:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:11:42 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
 #include "title.h"
 
-static void	_enemy_scp_attack(t_data *const game, t_entity *const self)
+static void	_enemy_scp_on_screen(
+			t_data *const game,
+			t_entity *const self,
+			const t_v3f diff,
+			const float dt)
 {
-	const t_v3f	dir = v3froty((t_v3f){.5f}, self->rot[x]);
-	t_v3f		player;
-	int			i;
+	const float		dist = v3fmag(diff);
 
-	i = 1;
-	player = self->aabb.pos + self->aabb.dim / 2.;
-	player[y] = self->aabb.pos[y];
-	while (i++ < 5)
-		e_spike_add(game, player + dir * (float)i,
-			self->rot)->dir[x] = ((float)i - 1.f) * 0.2f;
+	self->rot[x] = atan2f(diff[z], diff[x]);
+	if (self->dir[x] <= 0.5f && dist < 1.0f)
+	{
+		self->dir[x] = 5.0f;
+		enemy_scp_attack(game, self);
+	}
+	else if (dist > .5f)
+	{
+		self->vel = v3fnorm((t_v3f){diff[x], 0.f, diff[z]}, dt * 5.f);
+		self->aabb.type = AABB_MOVABLE;
+	}
 }
 
 static void	_enemy_scp_update(
@@ -39,31 +46,16 @@ static void	_enemy_scp_update(
 	const float		dist = v3fmag(diff);
 
 	self->aabb.type = AABB_IMMOVABLE;
-	if (dist < 1.5f && can_see_aabb(game, self_center, &player->aabb, 9999.f) && is_entity_on_screen(game, self) == 0)
+	if (dist < 1.5f && can_see_aabb(game, self_center, &player->aabb, 9999.f) \
+		&& is_entity_on_screen(game, self) == 0)
 	{
 		title_put(&game->title, g_titles[0], 0.5f);
-		if (self->dir[y] >= 1.0f)
-			printf("Tu t'fe tap mec\n");
 		self->dir[y] = fminf(self->dir[y] + dt , 1.001f);
-		
 	}
 	else
 		self->dir[y] = fmaxf(self->dir[y] - dt * 0.8f, 0.0f);
 	if (is_entity_on_screen(game, self) == 0)
-	{
-		self->rot[x] = atan2f(diff[z], diff[x]);
-		if (self->dir[x] <= 0.5f && dist < 1.0f)
-		{
-			self->dir[x] = 5.0f;
-			_enemy_scp_attack(game, self);
-		}
-		else if (dist > .5f)
-		{
-			self->vel = v3fnorm(diff + (t_v3f){0.f, -diff[y]
-					+ 0.0001f, 0.f}, dt * 5.f);
-			self->aabb.type = AABB_MOVABLE;
-		}
-	}
+		_enemy_scp_on_screen(game, self, diff, dt);
 	if (self->dir[x] > 0.0f)
 		self->dir[x] = fmaxf(self->dir[x] - dt, 0.0f);
 }
@@ -97,7 +89,8 @@ t_entity	*e_enemy_scp_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->aabb.type = AABB_MOVABLE;
 	ent->dir = (t_v3f){0.f};
 	ent->rot = rot;
-	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, {.3f, .85f, .3f}, AABB_IMMOVABLE};
+	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, \
+		{.3f, .85f, .3f}, AABB_IMMOVABLE};
 	ent->mesh = &game->models[10];
 	ent->type = ENTITY_ENEMY_SCP;
 	return (ent);
