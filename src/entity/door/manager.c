@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 03:42:11 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 03:25:01 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static void	_door_update(
 				center[z] += ft_rand(-.5f, .5f);
 			else
 				center[x] += ft_rand(-.5f, .5f);
-			part = particle_add(game, center, \
-				(t_v3f){0.f, ft_rand(-.3f, -.15f)});
+			part = particle_add(game, center,
+					(t_v3f){0.f, ft_rand(-.3f, -.15f)});
 			part->force = ft_rand(0.5f, 1.5f);
 			part->spr = game->sprites[5];
 			part->death_time = ft_rand(0.6f, 0.7f);
 			self->dir[y] = .03f;
 		}
 		self->dir[y] = fmaxf(self->dir[y] - dt, 0.f);
-		self->aabb.pos[y] += dt;
-		self->dir[x] = fmaxf(self->dir[x] - dt, 0.0f);
+		self->vel[y] += dt;
+		self->dir[x] = fmaxf(self->dir[x] - dt, 1.0f);
 	}
 }
 

@@ -6,12 +6,14 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 15:22:03 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:53:28 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
+
+# define UPDATE_DISTANCE (5)
 
 # include "engine.h"
 

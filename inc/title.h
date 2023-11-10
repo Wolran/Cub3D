@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:18:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/09 08:50:45 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:52:21 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 
 # include "engine.h"
 
-typedef struct s_title t_title;
+typedef struct s_title		t_title;
 
-static char const *const g_titles[] =
-{
+static char const *const	g_titles[] = {
 	"A terrible chill runs up your spine !",
 	"You have retrieved the rope, go towards the exit!",
 };
 
 struct s_title
 {
-	float time;
-	char *str;
+	float	time;
+	char	*str;
 };
 
 void	title_put(t_title *const title, char const *str, float const time);

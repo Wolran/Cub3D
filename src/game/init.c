@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 02:48:43 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:58:52 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,13 @@ int	game_init(t_engine *const eng, t_data *const game, char **argv)
 	eng->mouse_x = 500;
 	eng->mouse_y = 260;
 	ft_hide_cursor(game->eng);
-	e_player_add(game, game->map.spawn + (t_v3f){0.f, .5f, 0.f});
-	    // for (int i = 0; i < 500; i++)
-        // e_mimic_add(game, (t_v3f){ft_rand(0.0f, game->map.size[x]), 3.5f, ft_rand(0.0f, game->map.size[z])}, (t_v2f){});
+
+	e_player_add(game, game->map.spawn + (t_v3f){0.0f, 0.1f, 0.0f});
+	e_enemy_fish_add(game, game->map.spawn + \
+		(t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
+	e_rope_add(game, game->map.spawn + \
+		(t_v3f){.7f, .0f, .7f}, (t_v2f){0.0f, 0.f});
 	map_agrement(&game->map);
 	map_generate(game);
-	e_enemy_fish_add(game, game->map.spawn + (t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
-	e_rope_add(game, game->map.spawn +  (t_v3f){.7f, .0f, .7f}, (t_v2f){0.0f, 0.f});
 	return (0);
 }

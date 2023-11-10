@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 04:11:42 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 05:01:14 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	_enemy_scp_update(
 		&& is_entity_on_screen(game, self) == 0)
 	{
 		title_put(&game->title, g_titles[0], 0.5f);
-		self->dir[y] = fminf(self->dir[y] + dt , 1.001f);
+		self->dir[y] = fminf(self->dir[y] + dt, 1.001f);
 	}
 	else
 		self->dir[y] = fmaxf(self->dir[y] - dt * 0.8f, 0.0f);

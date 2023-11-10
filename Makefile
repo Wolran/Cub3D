@@ -62,6 +62,8 @@ SRC		=	main.c \
 			 \
 			holding/holding.c \
 			 \
+			title/manager.c \
+			 \
 			camera.c \
 			 \
 			menu/manager.c \
@@ -98,7 +100,7 @@ SRC		=	main.c \
 			particle/manager.c \
 			particle/generic.c \
 			 \
-			title/manager.c \
+			gameplay_utils.c \
 
 INC		=	vec3.h \
 			camera.h \
@@ -142,16 +144,12 @@ debug: obj $(ENGINE_LIB) $(NAME)
 obj:
 	@mkdir -p $(OBJDIR)
 
-.print:
-	@> $@
-	@echo "\e[1;36mCompiling...\e[0m"
-
 $(NAME): $(OBJ)
 	@echo "\e[1;35mLinking...\e[0m"
 	@$(CC) -o $(NAME) $+ $(ENGINE_LNK)
 	@echo "\e[1;32m➤" $@ "created succesfully !\e[0m"
 
-$(OBJDIR)/%.o: $(SRCDIR)/%.c .print
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
 	@echo "\e[0;36m ↳\e[0;36m" $<"\e[0m"
 	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(INCDIR) $(ENGINE_INC) -c $< -o $@

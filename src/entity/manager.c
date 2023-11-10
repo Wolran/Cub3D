@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:50:21 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/07 16:00:35 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/10 04:48:11 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,47 +15,34 @@
 void	entities_update(t_data *const game, float const dt)
 {
 	t_entity	*ent;
-	t_length	len;
+	t_length	index;
 
 	ent = game->entities.data;
-	len = game->entities.size;
-	while (len > 0)
+	index = 0;
+	while (index < game->entities.size)
 	{
 		ent->update(ent, game, dt);
 		ent->time_alive += dt;
-		ent++;
-		len--;
-	}
-}
-
-void	entities_collisions(t_data *const game)
-{
-	t_entity	*ent;
-	t_length	len;
-
-	ent = game->entities.data;
-	len = game->entities.size;
-	while (len > 0)
-	{
-		// COLLISIONS
-		
-		ent++;
-		len--;
+		++ent;
+		++index;
 	}
 }
 
 void	entities_display(t_data *const game)
 {
 	t_entity	*ent;
-	t_length	len;
+	t_length	index;
 
 	ent = game->entities.data;
-	len = game->entities.size;
-	while (len > 0)
+	index = 0;
+	while (index < game->entities.size)
 	{
 		ent->display(ent, game);
-		ent++;
-		len--;
+		put_3d_point(game->eng, &game->cam, ent->aabb.pos, 0.05f);
+		put_3d_point(game->eng, &game->cam, ent->aabb.pos + \
+			ent->aabb.dim, 0.05f);
+		++ent;
+		++index;
 	}
 }
 
