@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:22:15 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 03:22:53 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 09:02:48 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,17 @@ void	holding_display(
 	t_transform	trans;
 
 	ft_eng_sel_spr(eng, cam->surface);
-	trans.rotation = cam->rot;
-	trans.rotation[x] -= sinf((hold->time_from_start + 0.6f) * M_PI / 5.f) * 0.0155f;
-	trans.rotation[x] += hold->click_energy * 0.1f;
-	trans.rotation[y] += cosf((hold->time_from_start + 0.6f) * M_PI / 3.f) * 0.08f;
-	trans.rotation[y] -= hold->click_energy * 0.4f;
-	trans.resize = (t_v3f){0.12f, 0.12f, 0.12f};
-	trans.translation = cam->pos + v3froty(
-			v3frotz((t_v3f){
-				0.3f,
-				-0.12f + sinf(hold->energy_vel * 5.f) * 0.01f,
-				-0.2},
-				cam->rot[y]), cam->rot[x]);
-	mesh_put(eng, cam, trans, model);
+	// trans.rotation = cam->rot;
+	// trans.rotation[x] -= M_PI / 5.f * 0.0155 + M_PI_4;
+	// trans.rotation[y] +=  M_PI / 3.f * 0.08f + M_PI_4;
+	// trans.resize = (t_v3f){0.12f, 0.12f, 0.12f};
+	// trans.translation = cam->pos + v3froty(
+	// 		v3frotz((t_v3f){
+	// 			0.3f,
+	// 			-0.12f,
+	// 			-0.2},
+	// 			cam->rot[y]), cam->rot[x]);
+	// mesh_put(eng, cam, trans, model);
 	trans.rotation = cam->rot;
 	trans.rotation[x] += sinf(hold->time_from_start * M_PI / 5.f) * 0.0155f;
 	trans.rotation[x] -= hold->click_energy * 0.6f;

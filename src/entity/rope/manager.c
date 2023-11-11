@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 08:20:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 05:16:24 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 08:58:11 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	hardcore_mode(t_data *const game, t_v3f const pos, float const dt)
 	int	i;
 
 	i = -1;
-	game->cam.fog_color = (t_color){0xFF300405};
+	game->cam.fog_color = (t_color){0xFF8A0F0F};
 	while (++i < 100)
 	{
 		game->cam.fog_distance = fmaxf(game->cam.fog_distance - dt, 6.0f);
@@ -32,13 +32,14 @@ static void	_rope_update(
 			t_data *const game,
 			float const dt)
 {
-	t_entity *const	player = game->entities.data;
-
-	if ((ft_mouse(game->eng, 3).pressed) && \
-	can_see_aabb(game, player->aabb.pos, &self->aabb, 1.0f))
+	(void)dt;
+	if (ft_mouse(game->eng, 3).pressed && \
+		ray_box_intersection(game->cam.pos, v3frot((t_v3f){1.0f}, \
+		game->cam.rot), self->aabb, &(float){0.0f}))
 	{
 		self->dead = 1;
 		game->selected_model = 12;
+		game->state = 1;
 		title_put(&game->title, g_titles[1], 2.5f);
 		hardcore_mode(game, self->aabb.pos, dt);
 	}

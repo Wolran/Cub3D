@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 05:25:12 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 11:00:49 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 #include "entity/all.h"
 #include "particle/particle.h"
 #include "aabb.h"
-
-int	test(t_object obj)
-{
-	t_entity *const	ent = obj;
-
-	return (ent->type != ENTITY_ROPE);
-}
 
 static inline int	__loop(t_engine *eng, t_data *game, double dt)
 {
@@ -41,7 +34,7 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 	if (game->show_settings)
 		menu_update(eng, &game->menu);
 
-	t_ray	ray = cast_ray(&game->map, game->cam.pos, v3froty(v3frotz((t_v3f){1.f}, game->cam.rot[y]), game->cam.rot[x]), 999);
+	t_ray	ray = cast_ray(&game->map, game->cam.pos, v3froty(v3frotz((t_v3f){1.f}, game->cam.rot[y]), game->cam.rot[x]), 999.f);
 	if (!game->show_settings && ft_mouse(eng, 1).pressed
 		&& game->selected_model == 3
 		&& map_get(&game->map, ray.pos) == cell_wall)
@@ -59,12 +52,19 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.5f, .125f, 0.f}}, &game->models[3]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.75f, .125f, 0.f}}, &game->models[4]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){1.0f, .125f, 0.f}}, &game->models[5]);
-	mesh_put(eng, &game->cam, (t_transform){{M_PI_2, 0.0f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){.0f, 2.1f, 0.f}}, &game->models[13]);
 
 	entities_display(game);
 	particles_update(game, dt);
 
 
+	if (game->state == 2)
+	{
+		mesh_put(eng, &game->cam, (t_transform){{sinf(time) * 0.03f, cosf(time * 0.842f) * 0.03f}, \
+		{.6f, .6f, .6f}, \
+		cast_ray(&game->map, game->map.spawn, \
+		(t_v3f){0.f, 1.0f}, 99999.0f).end - (t_v3f){0.01f, .465f, -0.05f}}, \
+		&game->models[14]);
+	}
 	if (game->cam.fog)
 		shader_apply_depth(&game->cam);
 	ft_memset(game->cam.depth_buffer, 0xFF, game->cam.surface->size[x]

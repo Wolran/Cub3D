@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 05:11:51 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 10:19:34 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ static int	__models_init(t_engine *const eng, t_data *const game)
 	game->models[11] = mesh_load(eng, "models/spike.obj");
 	game->models[12] = mesh_load(eng, "models/rope.obj");
 	game->models[13] = mesh_load(eng, "models/hook.obj");
-	game->models[14] = (t_mesh){0};
+	game->models[14] = mesh_load(eng, "models/man.obj");
+	game->models[15] = (t_mesh){0};
 	return (0);
 }
 
@@ -86,6 +87,9 @@ int	game_init(t_engine *const eng, t_data *const game, char **argv)
 		(t_v3f){.5f, .0f, .5f}, (t_v2f){ft_rand(-M_PI, M_PI), 0.f});
 	e_rope_add(game, game->map.spawn + \
 		(t_v3f){.7f, .0f, .7f}, (t_v2f){0.0f, 0.f});
+	e_hook_add(game, cast_ray(&game->map, \
+		game->map.spawn, (t_v3f){0.f, 1.0f}, 99999.0f).end \
+		+ (t_v3f){0.f, 1.1f}, (t_v2f){0.0f});
 	map_agrement(&game->map);
 	map_generate(game);
 	return (0);

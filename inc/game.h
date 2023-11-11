@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 00:06:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 08:44:16 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ struct s_data
 	t_vector	particles;
 	t_title		title;
 	t_fog		fog;
+	int			state;
 };
 
 #endif

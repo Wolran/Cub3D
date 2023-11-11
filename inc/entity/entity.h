@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 07:50:47 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 04:49:22 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 08:46:35 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ enum e_entity
 	ENTITY_ENEMY_SCP,
 	ENTITY_ENEMY_FISH,
 	ENTITY_ROPE,
+	ENTITY_HOOK,
 };
 
 void	entities_update(t_data *const game, float const dt);

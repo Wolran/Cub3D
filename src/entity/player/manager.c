@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 08:05:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/09 08:24:42 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/11 09:47:32 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static void	_player_update(
 		{
 			printf("jump\n");
 			self->dir[x] = 2.5f;
+			if (self->aabb.pos[y] < 3.0f)
+				self->aabb.pos[y] = 3.02f;
 		}
 		else
 			self->dir[x] = 0.f;
