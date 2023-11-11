@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 04:53:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 00:06:28 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include "inventory.h"
 # include "minimap.h"
 # include "title.h"
+# include "fog_manager.h"
 
 int		game_init(t_engine *const eng, t_data *const game, char **argv);
 
@@ -54,6 +55,7 @@ struct s_data
 	t_vector	entities;
 	t_vector	particles;
 	t_title		title;
+	t_fog		fog;
 };
 
 #endif

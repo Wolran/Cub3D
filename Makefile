@@ -114,6 +114,7 @@ INC		=	vec3.h \
 			game.h \
 			model.h \
 			title.h \
+			fog_manager.h \
 
 OBJ		= $(addprefix $(OBJDIR)/,$(SRC:.c=.o))
 

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   title.h                                            :+:      :+:    :+:   */
+/*   fog_manager.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:18:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 03:44:37 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 00:16:59 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TITLE_H
-# define TITLE_H
+#ifndef FOG_MANAGER_H
+# define FOG_MANAGER_H
 
 # include "engine.h"
 
-typedef struct s_title		t_title;
+typedef struct s_fog		t_fog;
 
-static char const *const	g_titles[] = {
-	"A terrible chill runs up your spine ...",
-	"You have retrieved the rope, go towards the exit!",
-};
-
-struct s_title
+struct s_fog
 {
+	float	start;
 	float	time;
-	char	*str;
+	float	end;
 };
-
-void	title_put(t_title *const title, char const *str, float const time);
-void	title_update(t_engine *const eng, t_title *const title, float const dt);
 
 #endif 

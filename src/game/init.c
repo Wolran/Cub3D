@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 05:54:24 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:24:37 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 05:11:51 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ static int	__models_init(t_engine *const eng, t_data *const game)
 	game->models[10] = mesh_load(eng, "models/173.obj");
 	game->models[11] = mesh_load(eng, "models/spike.obj");
 	game->models[12] = mesh_load(eng, "models/rope.obj");
-	game->models[13] = (t_mesh){0};
+	game->models[13] = mesh_load(eng, "models/hook.obj");
+	game->models[14] = (t_mesh){0};
 	return (0);
 }
 
@@ -72,6 +73,7 @@ int	game_init(t_engine *const eng, t_data *const game, char **argv)
 	game->entities = vector_create(sizeof(t_entity));
 	if (game->entities.data == NULL)
 		return (game_destroy(game), 1);
+	vector_reserve(&game->entities, 2048);
 	game->particles = vector_create(sizeof(t_particle));
 	if (game->particles.data == NULL)
 		return (game_destroy(game), 1);

@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/10 05:12:04 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 02:56:19 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	_enemy_fish_part(
 	const float		dist = v3fmag(diff);
 
 	part = particle_add(game, self_center + (t_v3f) \
-		{ft_rand(-0.15f, 0.150f), ft_rand(-0.15f, 0.150f), \
+		{ft_rand(-0.15f, 0.150f), ft_rand(-0.15f, 0.08f), \
 		ft_rand(-0.15f, 0.150f)} + diff / dist * 0.2f, \
 		(t_v3f){0.f, ft_rand(-.3f, -.15f)});
 	part->force = 5.0f;
@@ -68,6 +68,7 @@ static void	_enemy_fish_display(t_entity *const self, t_data *const game)
 	trans.resize = (t_v3f){fabsf(sinf(self->dir[y] * 4.f)) \
 		* 0.1f + 0.5f, 0.5f, 0.5f};
 	trans.translation = self->aabb.pos + self->aabb.dim / 2.f;
+	trans.translation[y] = self->aabb.pos[y];
 	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
 }
 
@@ -90,6 +91,7 @@ t_entity	*e_enemy_fish_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->aabb.type = AABB_MOVABLE;
 	ent->dir = (t_v3f){0.f};
 	ent->rot = rot;
+	ent->dir[y] = ft_rand(0.f, 10.f);
 	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, \
 		{.3f, .3f, .3f}, AABB_NONE};
 	ent->mesh = &game->models[6];

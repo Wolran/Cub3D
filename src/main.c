@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:03:01 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 05:25:12 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 #include "entity/all.h"
 #include "particle/particle.h"
 #include "aabb.h"
+
+int	test(t_object obj)
+{
+	t_entity *const	ent = obj;
+
+	return (ent->type != ENTITY_ROPE);
+}
 
 static inline int	__loop(t_engine *eng, t_data *game, double dt)
 {
@@ -26,7 +33,6 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 		+ (t_v3f){0.16f, 0.7f, 0.16f};
 
 	entities_update(game, dt);
-
 	collision_ent(game, &game->entities);
 	entities_destroy(game);
 
@@ -53,6 +59,7 @@ static inline int	__loop(t_engine *eng, t_data *game, double dt)
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.5f, .125f, 0.f}}, &game->models[3]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){0.75f, .125f, 0.f}}, &game->models[4]);
 	mesh_put(eng, &game->cam, (t_transform){{time, 0.25f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){1.0f, .125f, 0.f}}, &game->models[5]);
+	mesh_put(eng, &game->cam, (t_transform){{M_PI_2, 0.0f}, {.125f, .125f, .125f}, game->map.spawn + (t_v3f){.0f, 2.1f, 0.f}}, &game->models[13]);
 
 	entities_display(game);
 	particles_update(game, dt);

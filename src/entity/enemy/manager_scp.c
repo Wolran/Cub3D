@@ -6,15 +6,15 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:11:43 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/11 01:12:28 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
 #include "title.h"
+#include "fog_manager.h"
 
 static void	_enemy_scp_on_screen(
-			t_data *const game,
 			t_entity *const self,
 			const t_v3f diff,
 			const float dt)
@@ -22,12 +22,7 @@ static void	_enemy_scp_on_screen(
 	const float		dist = v3fmag(diff);
 
 	self->rot[x] = atan2f(diff[z], diff[x]);
-	if (self->dir[x] <= 0.5f && dist < 1.0f)
-	{
-		self->dir[x] = 5.0f;
-		enemy_scp_attack(game, self);
-	}
-	else if (dist > .5f)
+	if (dist > .5f)
 	{
 		self->vel = v3fnorm((t_v3f){diff[x], 0.f, diff[z]}, dt * 5.f);
 		self->aabb.type = AABB_MOVABLE;
@@ -46,6 +41,11 @@ static void	_enemy_scp_update(
 	const float		dist = v3fmag(diff);
 
 	self->aabb.type = AABB_IMMOVABLE;
+	game->fog.end = 0.0f;
+	// printf("dist = %f\n", dist);
+	// if (dist < 1.5f)
+	// 	game->cam.fog_distance = fmaxf(game->cam.fog_distance - dt * 10, 3.5f);
+	game->fog.start = 1.f;
 	if (dist < 1.5f && can_see_aabb(game, self_center, &player->aabb, 9999.f) \
 		&& is_entity_on_screen(game, self) == 0)
 	{
@@ -55,9 +55,7 @@ static void	_enemy_scp_update(
 	else
 		self->dir[y] = fmaxf(self->dir[y] - dt * 0.8f, 0.0f);
 	if (is_entity_on_screen(game, self) == 0)
-		_enemy_scp_on_screen(game, self, diff, dt);
-	if (self->dir[x] > 0.0f)
-		self->dir[x] = fmaxf(self->dir[x] - dt, 0.0f);
+		_enemy_scp_on_screen(self, diff, dt);
 }
 
 static void	_enemy_scp_display(t_entity *const self, t_data *const game)
