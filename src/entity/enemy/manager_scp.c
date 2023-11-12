@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 01:12:28 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/12 02:57:11 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	_enemy_scp_display(t_entity *const self, t_data *const game)
 	t_transform	trans;
 
 	trans.rotation = self->rot + (t_v2f){M_PI_2, 0.0f};
-	trans.resize = (t_v3f){1.1f, 1.1f, 1.1f};
+	trans.resize = (t_v3f){0.8f, 0.8f, 0.8f};
 	trans.translation = self->aabb.pos + (t_v3f){.15f, .0f, .15f};
 	mesh_put(game->eng, &game->cam, trans, &game->models[10]);
 }
