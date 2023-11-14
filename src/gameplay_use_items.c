@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 03:40:20 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 17:13:51 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:50:20 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 #include "particle/particle.h"
 #include "entity/all.h"
 
-static float const g_damage[] = {
+static float const	g_damage[] = {
 	6.f, 0.f, 28.f, 18.f, 6.f, 999.f, 0.f,
-	0.f, 34.f, 0.f, 0.f, 0.f, 0.f, 0.f, 16.f
+	0.f, 34.f, 0.f, 0.f, 0.f, 0.f, 16.f
 };
 
-static float const g_reach[] = {
+static float const	g_reach[] = {
 	1.f, 1.f, 1.5f, 1.f, .75f, 999.f, 1.f,
-	1.f, 2.f, 1.f, 1.f, 1.f, 1.f, 1.f, 1.f
+	1.f, 2.f, 1.f, 1.f, 1.f, 1.f, 1.f
 };
 
 void	effect_explosion(t_data *const game, t_v3f const pos)
@@ -109,7 +109,7 @@ static inline void	__attack(
 	__attack2(game, hit, ent, dam);
 }
 
-static int const	g_items[] = {3, 3, 3, 3, 2, 2, 2, 8, 8, 0};
+static int const	g_items[] = {4, 4, 4, 3, 3, 3, 2, 2, 2, 8, 8, 0};
 
 static inline void	__use(t_data *const game, t_entity *const ent)
 {
@@ -122,8 +122,9 @@ static inline void	__use(t_data *const game, t_entity *const ent)
 	}
 	if (ent->type == ENTITY_MIMIC)
 	{
+		game->holding.click_energy = 0.25f;
 		if ((((size_t)ent->data) & 0x10) == 0)
-			ent->data = (void *)((long)16 + g_items[rand() % 10]);
+			ent->data = (void *)((long)16 + g_items[rand() % 12]);
 		else
 		{
 			temp = game->selected_model;
@@ -151,7 +152,7 @@ void	player_use_item(t_data *const game, t_hit const hit)
 			{
 				p_block_add(game, v3itof(hit.ray.pos) + (t_v3f){.5f, .5f, .5f});
 				map_set(&game->map, hit.ray.pos, cell_air);
-				game->selected_model = 14;
+				game->selected_model = 13;
 			}
 		}
 		else

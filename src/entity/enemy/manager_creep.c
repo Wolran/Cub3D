@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 03:09:47 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/13 18:53:43 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:12:39 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	_enemy_creep_display(t_entity *const self, t_data *const game)
 	transform.resize = (t_v3f){.3f, .3f, .3f};
 	transform.rotation = self->rot;
 	transform.translation = self->aabb.pos + self->aabb.dim / 2.f;
-	mesh_put(game->eng, &game->cam, transform, &game->models[15]);
+	mesh_put(game->eng, &game->cam, transform, &game->models[14]);
 }
 
 t_entity	*e_enemy_creep_add(t_data *const game, t_v3f const pos, t_v2f rot)
@@ -93,7 +93,7 @@ t_entity	*e_enemy_creep_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->aabb = (t_aabb){pos - (t_v3f){.3f, .4f, .3f}, \
 		{.6f, .6f, .6f}, AABB_MOVABLE};
 	if (map_get(&game->map, v3ftoi(pos) + (t_v3i){0, 1, 0}) == cell_air)
-	ent->aabb = (t_aabb){pos + (t_v3i){0, 1} - (t_v3f){.3f, .0f, .3f}, \
+	ent->aabb = (t_aabb){pos + (t_v3f){0, 1} - (t_v3f){.3f, .0f, .3f}, \
 		{.6f, .6f, .6f}, AABB_MOVABLE};
 	ent->mesh = &game->models[0];
 	ent->type = ENTITY_ENNEMY_CREEP;

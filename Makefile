@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	= cube3d
+NAME	= cub3D
 
 # directories
 SRCDIR	=	./src
@@ -19,6 +19,7 @@ OBJDIR	=	./obj
 
 # src / includes / obj files
 SRC		=	main.c \
+			main2.c \
 			 \
 			game/init.c \
 			game/destroy.c \
@@ -69,6 +70,8 @@ SRC		=	main.c \
 			 \
 			menu/manager.c \
 			menu/settings.c \
+			menu/small_func1.c \
+			menu/small_func2.c \
 			 \
 			minimap.c \
 			 \
@@ -92,7 +95,6 @@ SRC		=	main.c \
 			entity/fireball/manager.c \
 			entity/mimic/manager.c \
 			entity/door/manager.c \
-			entity/spike/manager.c \
 			entity/rope/manager.c \
 			entity/hook/manager.c \
 			entity/enemy/enemy_attack.c \

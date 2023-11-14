@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/13 14:13:19 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:26:21 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,10 @@ static void	_enemy_fish_update(
 	if (dist > .15f)
 	{
 		if (dist < 4.5f)
-			self->vel = v3fnorm((t_v3f){diff[x], 3.f
-					- self->aabb.pos[y], diff[z]}, dt * .6f);
+		{
+			self->vel = v3fnorm((t_v3f){diff[x], 0.f, diff[z]}, dt * .6f);
+			self->aabb.pos[y] += (3.f - self->aabb.pos[y]) * dt * 2.f;
+		}
 		__attack(game, self, dt, dist);
 		if (map_get(&game->map, v3ftoi(self_center)) == cell_wall)
 		{

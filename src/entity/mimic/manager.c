@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 16:42:03 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:20:01 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	_mimic_display(t_entity *const self, t_data *const game)
 	trans.resize = (t_v3f){0.5f, 0.5f, 0.5f};
 	trans.translation = self->aabb.pos + (t_v3f){0.125f, 0.f, 0.125f};
 	mesh_put(game->eng, &game->cam, trans,
-		&game->models[(int [2]){5, 17}[(((size_t)self->data) & 0x10) != 0]]);
+		&game->models[(int [2]){5, 16}[(((size_t)self->data) & 0x10) != 0]]);
 	trans.rotation[x] = self->time_alive;
 	trans.rotation[y] = 0.3f;
 	trans.resize = (t_v3f){0.125f, 0.125f, 0.125f};

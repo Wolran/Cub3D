@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 16:58:58 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 18:08:30 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	game_sprites_destroy(t_data *const game);
 void	game_models_destroy(t_data *const game);
 void	game_destroy(t_data *const game);
 
+int		loop_la_vrai(t_engine *eng, t_data *game, float const dt);
+
 void	effect_explosion(t_data *const game, t_v3f const pos);
 
 struct s_data
@@ -53,7 +55,10 @@ struct s_data
 	t_vector	particles;
 	t_title		title;
 	t_fog		fog;
+	void		*target_death;
+	t_v3f		death_pos;
 	int			state;
+	float		hard_time;
 };
 
 #endif

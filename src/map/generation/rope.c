@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 18:12:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 18:30:55 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 10:13:11 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	generate_rope(t_data *const game)
 	start = v3ftoi(game->map.spawn) - (t_v3i){0, 2, 0};
 	__get_and_remove_zone(&game->map, start, &room);
 	furthest = __get_furthest(start, &room);
-	e_rope_add(game, v3itof(furthest) + (t_v3f){.5f, 0.f, .5f}, (t_v2f){0.f});
-	printf("%i, %i, %i\n", furthest[x], furthest[y], furthest[z]);
+	e_rope_add(game, v3itof(furthest) + (t_v3f){.5f, 0.f, .5f});
+	vector_destroy(&room);
 	return (0);
 }

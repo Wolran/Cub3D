@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   inventory.h                                        :+:      :+:    :+:   */
+/*   small_func2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/13 05:18:30 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/14 13:36:25 by alde-fre         ###   ########.fr       */
+/*   Created: 2023/11/14 09:03:35 by vmuller           #+#    #+#             */
+/*   Updated: 2023/11/14 12:05:32 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INVENTORY_H
-# define INVENTORY_H
+#include "game.h"
 
-# include "game.h"
+void	__menu_quit(void *const data)
+{
+	int *const	sel = data;
 
-void	hotbar_put(t_data *const game);
-
-#endif
+	*sel = -2;
+}

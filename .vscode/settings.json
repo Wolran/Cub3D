@@ -1,8 +1,0 @@
-{
-	"files.associations": {
-		"all.h": "c",
-		"entity.h": "c",
-		"initializer_list": "c",
-		"parsing.h": "c"
-	}
-}

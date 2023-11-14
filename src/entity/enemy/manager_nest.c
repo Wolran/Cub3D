@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 03:09:47 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/13 16:51:33 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 14:12:49 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static void	_enemy_nest_display(t_entity *const self, t_data *const game)
 		+ sinf(self->time_alive) * .015f;
 	transform.rotation = self->rot;
 	transform.translation = self->aabb.pos + (t_v3f){.3f, 0.f, .3f};
-	mesh_put(game->eng, &game->cam, transform, &game->models[16]);
+	mesh_put(game->eng, &game->cam, transform, &game->models[15]);
 }
 
 t_entity	*e_enemy_nest_add(t_data *const game, t_v3f const pos)

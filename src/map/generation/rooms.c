@@ -6,25 +6,29 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 13:55:20 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 14:09:54 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 09:18:18 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "generation.h"
 
-static inline void	__get_and_remove_zone(
+static inline int	__get_and_remove_zone(
 	t_map *const map,
 	t_v3i const pos,
 	t_vector *const blocks)
 {
+	int		is_spawn;
+
 	if (map_get(map, pos) < cell_zone)
-		return ;
+		return (0);
+	is_spawn = (pos[x] == (int)map->spawn[x] && pos[z] == (int)map->spawn[z]);
 	map_set(map, pos, cell_air);
 	vector_addback(blocks, &(t_v3i){pos[x], pos[y] + 2, pos[z]});
-	__get_and_remove_zone(map, pos + (t_v3i){1, 0, 0}, blocks);
-	__get_and_remove_zone(map, pos + (t_v3i){0, 0, 1}, blocks);
-	__get_and_remove_zone(map, pos + (t_v3i){-1, 0, 0}, blocks);
-	__get_and_remove_zone(map, pos + (t_v3i){0, 0, -1}, blocks);
+	is_spawn |= __get_and_remove_zone(map, pos + (t_v3i){1, 0, 0}, blocks);
+	is_spawn |= __get_and_remove_zone(map, pos + (t_v3i){0, 0, 1}, blocks);
+	is_spawn |= __get_and_remove_zone(map, pos + (t_v3i){-1, 0, 0}, blocks);
+	is_spawn |= __get_and_remove_zone(map, pos + (t_v3i){0, 0, -1}, blocks);
+	return (is_spawn);
 }
 
 static inline void	__fill_small_room(t_data *const game, t_vector *const room)
@@ -105,7 +109,11 @@ void	generate_room(t_data *const game, t_v3i const pos)
 	room = vector_create(sizeof(t_v3i));
 	if (room.data == NULL)
 		return ;
-	__get_and_remove_zone(&game->map, pos, &room);
+	if (__get_and_remove_zone(&game->map, pos, &room))
+	{
+		vector_destroy(&room);
+		return ;
+	}
 	if (room.size < 25)
 		__fill_small_room(game, &room);
 	else if (room.size < 50)

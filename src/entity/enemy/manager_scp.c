@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 14:20:06 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 17:22:02 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ static void	_enemy_scp_update(
 	if (dist < 1.65f && can_see_aabb(game, self_center, &player->aabb, 9999.f) \
 		&& is_entity_on_screen(game, self) == 0)
 	{
-		title_put(&game->title, g_titles[0], 0.5f);
+		if (game->state != 2)
+			title_put(&game->title, g_titles[0], 0.5f);
 		if (self->dir[y] >= 1.f)
 		{
 			enemy_scp_attack(game, self);
@@ -92,7 +93,7 @@ t_entity	*e_enemy_scp_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->rot = rot;
 	ent->aabb = (t_aabb){pos - (t_v3f){.2f, .0f, .2f}, \
 		{.4f, .65f, .4f}, AABB_IMMOVABLE};
-	ent->mesh = &game->models[10];
+	ent->mesh = &game->models[0];
 	ent->type = ENTITY_ENNEMY_SCP;
 	return (ent);
 }
