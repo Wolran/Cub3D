@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 03:40:20 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/14 17:50:20 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:22:14 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,11 @@ static inline void	__attack2(
 		ent->dead = ent->health <= 0;
 	}
 	if (ent->type == ENTITY_ENNEMY_SCP
-		&& (game->selected_model == 3 || game->selected_model == 14))
+		&& (game->selected_model == 3 || game->selected_model == 13))
 	{
 		if (game->selected_model == 3)
 		{
-			game->selected_model = 14;
+			game->selected_model = 13;
 			ent->health -= ent->max_health * 0.5f;
 		}
 		else

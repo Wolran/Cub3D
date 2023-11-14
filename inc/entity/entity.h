@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 07:50:47 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/13 14:02:19 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:00:24 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ typedef struct s_entity	t_entity;
 typedef size_t			t_ent_type;
 typedef size_t			t_ent_id;
 
-typedef void (*t_func_updt)(t_entity *const s, t_data *const g, float const d);
-typedef void (*t_func_disp)(t_entity *const s, t_data *const g);
-typedef void (*t_func_dstr)(t_entity *const s, t_data *const g);
+typedef void			(*t_func_updt)(
+							t_entity *const s,
+							t_data *const g,
+							float const d);
+typedef void			(*t_func_disp)(t_entity *const s, t_data *const g);
+typedef void			(*t_func_dstr)(t_entity *const s, t_data *const g);
 
 enum e_entity
 {
@@ -45,8 +48,6 @@ void	entities_collisions(t_data *const game);
 void	entities_display(t_data *const game);
 void	entities_destroy(t_data *const game);
 
-
-// TODO: move to other file
 int		can_see_aabb(t_data *const game, t_v3f const pos, \
 		t_aabb *const box, float const dist);
 int		is_point_on_screen(t_data *const game, t_v3f const pos, \

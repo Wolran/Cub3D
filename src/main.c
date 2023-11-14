@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:36:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/14 18:27:42 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:21:59 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ static inline int	__main_menu(t_engine *eng, t_data *game, double dt)
 		game->menu.selected = 3;
 		ft_hide_cursor(game->eng);
 	}
-	game->cam.pos = (t_v3f){-1.10f, 1.5f, 0.f};
-	game->cam.rot = (t_v2f){0.f, -M_PI * 0.33};
+	game->cam.pos = (t_v3f){-1.60f, 1.5f, 0.f};
+	game->cam.rot = (t_v2f){0.f, -M_PI * 0.15};
 	camera_update(&game->cam);
 	ft_eng_sel_spr(eng, game->cam.surface);
 	ft_memset(game->cam.depth_buffer, 0xFF, game->cam.surface->size[x]
 		* game->cam.surface->size[y] * sizeof(float));
 	ft_clear(eng, (t_color){0x040018});
-	mesh_put(eng, &game->cam, (t_transform){{stime, 0.333f}, {1.f, 1.f, 1.f},
+	mesh_put(eng, &game->cam, (t_transform){{stime, 0.f}, {1.f, 1.f, 1.f},
 	{0.0f, -0.45f, 0.5f}}, &game->models[g_items[(int)(stime) % 7]]);
 	ft_eng_sel_spr(eng, NULL);
 	ft_put_sprite_s(eng, game->cam.surface, (t_v2i){0, 0}, 2);

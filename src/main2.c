@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:45:10 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/14 18:16:45 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:21:17 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	loop_la_vrai(t_engine *eng, t_data *game, float const dt)
 		}
 		game->hard_time += dt;
 	}
+	game->holding.time_from_start += dt;
 	return (1);
 }
