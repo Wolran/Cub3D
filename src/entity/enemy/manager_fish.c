@@ -3,29 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   manager_fish.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 09:58:08 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 14:13:19 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
 #include "particle/particle.h"
 
+static inline void	__attack(
+			t_data *const game,
+			t_entity *const self,
+			float const dt,
+			float const dist)
+{
+	t_entity *const	player = game->entities.data;
+
+	if (self->dir[y] >= 1.f && dist < 0.60f)
+	{
+		player->health -= 3.f;
+		self->dir[y] = -0.5f;
+	}
+	self->dir[y] += dt;
+}
+
 static void	_enemy_fish_part(
-			t_particle	*part,
 			t_data *const game,
 			t_entity *const	self,
 			const t_v3f	diff)
 {
 	const t_v3f		self_center = self->aabb.pos + self->aabb.dim / 2.f;
 	const float		dist = v3fmag(diff);
+	t_particle		*part;
 
+	self->dir[x] = 0.f;
 	part = particle_add(game, self_center + (t_v3f) \
 		{ft_rand(-0.15f, 0.150f), ft_rand(-0.15f, 0.08f), \
 		ft_rand(-0.15f, 0.150f)} + diff / dist * 0.2f, \
 		(t_v3f){0.f, ft_rand(-.3f, -.15f)});
+	if (part == NULL)
+		return ;
 	part->force = 5.0f;
 	part->spr = game->sprites[5];
 	part->death_time = ft_rand(.5f, 0.7f);
@@ -38,20 +57,22 @@ static void	_enemy_fish_update(
 {
 	t_entity *const	player = game->entities.data;
 	const t_v3f		self_center = self->aabb.pos + self->aabb.dim / 2.f;
-	const t_v3f		diff = player->aabb.pos + player->aabb.dim \
-		/ 2.f - self_center;
+	const t_v3f		diff = player->aabb.pos + player->aabb.dim / 2.f \
+						- self_center;
 	const float		dist = v3fmag(diff);
-	t_particle		part;
 
 	self->rot[x] = atan2f(diff[z], diff[x]);
-	if (dist > 1.0f)
+	if (dist > .15f)
 	{
-		self->vel = v3fnorm((t_v3f){diff[x], 0.f, diff[z]}, dt * .6f);
-		if (dist > 15.f)
-			self->vel = (t_v3f){0.f, 0.f, 0.f};
-		else if (map_get(&game->map, v3ftoi(self_center)) == cell_wall)
+		if (dist < 4.5f)
+			self->vel = v3fnorm((t_v3f){diff[x], 3.f
+					- self->aabb.pos[y], diff[z]}, dt * .6f);
+		__attack(game, self, dt, dist);
+		if (map_get(&game->map, v3ftoi(self_center)) == cell_wall)
 		{
-			_enemy_fish_part(&part, game, self, diff);
+			if (self->dir[x] >= .01f)
+				_enemy_fish_part(game, self, diff);
+			self->dir[x] += dt;
 			self->vel = v3fnorm((t_v3f){diff[x], 0.f, diff[z]}, dt * .2f);
 		}
 	}
@@ -65,17 +86,11 @@ static void	_enemy_fish_display(t_entity *const self, t_data *const game)
 
 	slide = v3frot((t_v3f){.3f, 0.f, 0.f}, self->rot);
 	trans.rotation = (t_v2f){self->rot[x], 0.f};
-	trans.resize = (t_v3f){fabsf(sinf(self->dir[y] * 4.f)) \
-		* 0.1f + 0.5f, 0.5f, 0.5f};
+	trans.resize = (t_v3f){fabsf(sinf(self->dir[y] * 2.f)) \
+		* 0.1f + 0.25f, 0.25f, 0.25f};
 	trans.translation = self->aabb.pos + self->aabb.dim / 2.f;
 	trans.translation[y] = self->aabb.pos[y];
 	mesh_put(game->eng, &game->cam, trans, &game->models[6]);
-}
-
-static void	_enemy_fish_destroy(t_entity *const self, t_data *const game)
-{
-	(void)self;
-	(void)game;
 }
 
 t_entity	*e_enemy_fish_add(t_data *const game, t_v3f const pos, t_v2f rot)
@@ -87,14 +102,14 @@ t_entity	*e_enemy_fish_add(t_data *const game, t_v3f const pos, t_v2f rot)
 		return (NULL);
 	ent->update = &_enemy_fish_update;
 	ent->display = &_enemy_fish_display;
-	ent->destroy = &_enemy_fish_destroy;
-	ent->aabb.type = AABB_MOVABLE;
 	ent->dir = (t_v3f){0.f};
+	ent->max_health = 15.f;
+	ent->health = ent->max_health;
 	ent->rot = rot;
 	ent->dir[y] = ft_rand(0.f, 10.f);
 	ent->aabb = (t_aabb){pos - (t_v3f){.15f, .0f, .15f}, \
-		{.3f, .3f, .3f}, AABB_NONE};
+		{.3f, .3f, .3f}, AABB_MOVABLE};
 	ent->mesh = &game->models[6];
-	ent->type = ENTITY_ENEMY_FISH;
+	ent->type = ENTITY_ENNEMY_FISH;
 	return (ent);
 }

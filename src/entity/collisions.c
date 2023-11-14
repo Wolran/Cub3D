@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collisions.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 20:47:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 09:55:49 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 08:32:05 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,33 +65,20 @@ int	aabb_solve(
 	return (1);
 }
 
-static t_v3i const	g_off_pos[] = {
-{-1, 0, 0},
-{1, 0, 0},
-{0, -1, 0},
-{0, 1, 0},
-{0, 0, -1},
-{0, 0, 1},
-{-1, -1, 0},
-{-1, 1, 0},
-{1, -1, 0},
-{1, 1, 0},
-{-1, 0, -1},
-{-1, 0, 1},
-{1, 0, -1},
-{1, 0, 1},
-{0, -1, -1},
-{0, -1, 1},
-{0, 1, -1},
-{0, 1, 1},
-{-1, -1, -1},
-{-1, -1, 1},
-{-1, 1, -1},
-{-1, 1, 1},
-{1, -1, -1},
-{1, -1, 1},
-{1, 1, -1},
-{1, 1, 1}
+static t_v3i const g_off_pos[] = {
+{-1, 0, 0}, {1, 0, 0},
+{0, -1, 0}, {0, 1, 0},
+{0, 0, -1}, {0, 0, 1},
+{-1, -1, 0}, {-1, 1, 0},
+{1, -1, 0}, {1, 1, 0},
+{-1, 0, -1}, {-1, 0, 1},
+{1, 0, -1}, {1, 0, 1},
+{0, -1, -1}, {0, -1, 1},
+{0, 1, -1}, {0, 1, 1},
+{-1, -1, -1}, {-1, -1, 1},
+{-1, 1, -1}, {-1, 1, 1},
+{1, -1, -1}, {1, -1, 1},
+{1, 1, -1}, {1, 1, 1}
 };
 
 static inline int	__block_collision(
@@ -110,7 +97,7 @@ static inline int	__block_collision(
 	while (++index < 26)
 	{
 		block = player_pos + g_off_pos[index];
-		if (map_get(map, block) != cell_wall)
+		if (map_get(map, block) == cell_air)
 			continue ;
 		block_box = (t_aabb){v3itof(block), {1.0f, 1.0f, 1.0f}, 2};
 		ret += aabb_solve(box, vel, &block_box, &(t_v3f){0});
@@ -130,13 +117,16 @@ static inline void	__ent_loop(
 	while (index < entities->size)
 	{
 		if (self != ent && ent->aabb.type != AABB_NONE
-			&& !((self->type == ENTITY_PLAYER && ent->type == ENTITY_FIREBALL) \
-			|| (ent->type == ENTITY_PLAYER && self->type == ENTITY_FIREBALL))
-			&& aabb_solve(&self->aabb, &self->vel, &ent->aabb, &ent->vel)
-			&& self->collided == ENTITY_NONE)
+			&& !((self->type == ENTITY_PLAYER && ent->type == ENTITY_FIREBALL)
+				|| (ent->type == ENTITY_PLAYER
+					&& self->type == ENTITY_FIREBALL)))
 		{
-			self->collided = ent->type;
-			ent->collided = self->type;
+			if (aabb_solve(&self->aabb, &self->vel, &ent->aabb, &ent->vel)
+				&& self->collided == ENTITY_NONE)
+			{
+				self->collided = ent->type;
+				ent->collided = self->type;
+			}
 		}
 		++ent;
 		++index;
@@ -156,18 +146,17 @@ void	collision_ent(
 	{
 		ent->collided = ENTITY_NONE;
 		if (ent->aabb.type != AABB_NONE)
-		{
 			__ent_loop(entities, ent);
-			if (__block_collision(&game->map, &ent->aabb, &ent->vel)
-				&& ent->collided == ENTITY_NONE)
-				ent->collided = ENTITY_GENERIC;
-		}
 		++ent;
 	}
 	ent = entities->data;
 	index = -1;
 	while (++index < entities->size)
 	{
+		if (ent->type != ENTITY_ENNEMY_FISH
+			&& __block_collision(&game->map, &ent->aabb, &ent->vel)
+			&& ent->collided == ENTITY_NONE)
+				ent->collided = ENTITY_GENERIC;
 		ent->aabb.pos += ent->vel;
 		ent->vel = (t_v3f){0};
 		++ent;

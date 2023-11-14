@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   title.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/07 15:18:37 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 03:44:37 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/12 06:47:10 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 typedef struct s_title		t_title;
 
 static char const *const	g_titles[] = {
-	"A terrible chill runs up your spine ...",
+	"A terrible chill runs up your spine...",
 	"You have retrieved the rope, go towards the exit!",
 };
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 08:05:41 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 02:57:20 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 08:12:10 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,14 @@ t_entity	*entity_add(t_data *const game, t_v3f const pos)
 	ent->display = &_entity_display;
 	ent->destroy = &_entity_destroy;
 	ent->data = NULL;
+	ent->vel = (t_v3f){0};
 	ent->dir = (t_v3f){0};
 	ent->rot = (t_v2f){0};
 	ent->aabb = (t_aabb){pos, {0}, AABB_NONE};
 	ent->mesh = &game->models[0];
 	ent->time_alive = 0.0f;
+	ent->health = 0.0f;
+	ent->max_health = 0.0f;
 	ent->collided = ENTITY_NONE;
 	ent->uuid = 0ul;
 	ent->type = ENTITY_GENERIC;

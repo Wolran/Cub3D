@@ -6,11 +6,12 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 16:33:08 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 03:25:01 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/11 10:06:45 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "entity/all.h"
+#include "gameplay_utils.h"
 #include "particle/particle.h"
 
 static void	_door_update(

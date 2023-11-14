@@ -3,17 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   game.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:17:55 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 08:44:16 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 16:58:58 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_H
 # define GAME_H
-
-# define UPDATE_DISTANCE (5)
 
 # include "engine.h"
 
@@ -36,16 +34,15 @@ void	game_sprites_destroy(t_data *const game);
 void	game_models_destroy(t_data *const game);
 void	game_destroy(t_data *const game);
 
+void	effect_explosion(t_data *const game, t_v3f const pos);
+
 struct s_data
 {
 	t_engine	*eng;
 	t_map		map;
-	t_map		*selected_map;
-	float		*depth_buffer;
 	t_sprite	*minimap;
 	t_camera	cam;
 	t_menu		menu;
-	size_t		tick;
 	float		sensitivity;
 	t_holding	holding;
 	int			show_settings;

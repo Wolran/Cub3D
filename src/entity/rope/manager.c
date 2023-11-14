@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 08:20:51 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 08:58:11 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 18:36:39 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static void	_rope_update(
 		game->cam.rot), self->aabb, &(float){0.0f}))
 	{
 		self->dead = 1;
-		game->selected_model = 12;
 		game->state = 1;
 		title_put(&game->title, g_titles[1], 2.5f);
 		hardcore_mode(game, self->aabb.pos, dt);
@@ -52,7 +51,7 @@ static void	_rope_display(t_entity *const self, t_data *const game)
 	trans.rotation = self->rot;
 	trans.resize = (t_v3f){.125f, .125f, .125f};
 	trans.translation = self->aabb.pos + (t_v3f){0.15f, 0.0f, 0.15f};
-	mesh_put(game->eng, &game->cam, trans, &game->models[12]);
+	mesh_put(game->eng, &game->cam, trans, &game->models[11]);
 }
 
 static void	_rope_destroy(t_entity *const self, t_data *const game)

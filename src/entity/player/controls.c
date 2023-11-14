@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   controls.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:30:00 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:16:25 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 12:55:33 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	__player_move(
 		vel += (t_v3f){-dir[z], 0.f, dir[x]};
 	if (eng->keys[K_LEFT])
 		vel -= (t_v3f){-dir[z], 0.f, dir[x]};
-	self->vel += v3fnorm(vel, dt * 2.f);
+	self->vel = v3fnorm(vel, dt * 2.f);
 	if (eng->keys[XK_Right])
 		game->cam.rot[x] += dt * 2.f;
 	if (eng->keys[XK_Left])
@@ -41,34 +41,28 @@ static inline void	__player_move(
 		game->cam.rot[y] += dt * 2.f;
 }
 
-static inline void	__player_rot(
-	t_data *const game)
-{
-	if (!game->show_settings)
-	{
-		game->cam.rot[x] += ((float)game->eng->mouse_x - 500)
-			* (game->sensitivity / 100.f);
-		game->cam.rot[y] -= ((float)game->eng->mouse_y - 260)
-			* (game->sensitivity / 100.f);
-		mlx_mouse_move(game->eng->mlx, game->eng->win, 500, 260);
-	}
-	if (game->cam.rot[x] < -M_PI)
-		game->cam.rot[x] += M_PI * 2;
-	else if (game->cam.rot[x] > M_PI)
-		game->cam.rot[x] -= M_PI * 2;
-	if (game->cam.rot[y] < -M_PI_2)
-		game->cam.rot[y] = -M_PI_2;
-	else if (game->cam.rot[y] > M_PI_2)
-		game->cam.rot[y] = M_PI_2;
-}
-
 void	player_control(
 			t_entity *const self,
 			t_data *const game,
 			double const dt)
 {
 	__player_move(self, game->eng, game, dt);
-	__player_rot(game);
+	if (!game->show_settings)
+	{
+		self->rot[x] += ((float)game->eng->mouse_x - 500)
+			* (game->sensitivity / 100.f);
+		self->rot[y] -= ((float)game->eng->mouse_y - 260)
+			* (game->sensitivity / 100.f);
+		mlx_mouse_move(game->eng->mlx, game->eng->win, 500, 260);
+	}
+	if (self->rot[x] < -M_PI)
+		self->rot[x] += M_PI * 2;
+	else if (self->rot[x] > M_PI)
+		self->rot[x] -= M_PI * 2;
+	if (self->rot[y] < -M_PI_2)
+		self->rot[y] = -M_PI_2;
+	else if (self->rot[y] > M_PI_2)
+		self->rot[y] = M_PI_2;
 	if (ft_key(game->eng, XK_Tab).pressed)
 	{
 		if (game->show_settings)
@@ -82,8 +76,4 @@ void	player_control(
 			ft_show_cursor(game->eng);
 		game->show_settings = !game->show_settings;
 	}
-	if (ft_mouse(game->eng, 1).pressed && game->selected_model == 0 \
-		&& !game->show_settings)
-		e_fireball_add(game, game->cam.pos + v3froty(v3frotz((t_v3f){0.2f},
-					game->cam.rot[y]), game->cam.rot[x]), game->cam.rot);
 }

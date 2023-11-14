@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing_2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 10:15:25 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/10 05:19:45 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/10/23 15:02:35 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ t_color	ft_get_color(t_sprite *spr, t_v2i pos)
 {
 	size_t	index;
 
-	if (pos[0] < 0 || pos[1] < 0 || pos[0] >= spr->size[0] \
-		|| pos[1] >= spr->size[1])
+	if (pos[0] < 0 || pos[1] < 0 || pos[0] >= spr->size[0] || pos[1] >= spr->size[1])
 		return ((t_color)(0xFF000000));
 	index = pos[0] + pos[1] * spr->size[0];
 	return (spr->data[index]);

@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:22:01 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/11 07:40:42 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 09:17:50 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing.h"
-
-// typedef struct s_compass
-// {
-// 	char const		str;
-// 	int const		index;
-// }	t_compass;
-
-// static t_compass const	g_pars_NESW[] = {
-// {'N', 0},
-// {'E', 1},
-// {'S', 2},
-// {'W', 3},
-// {NULL, 0},
-// };
 
 int	is_line_map_data(char *str)
 {
@@ -40,9 +26,9 @@ static inline int	__line_get_map(char *str, t_pars *pars)
 	if (*str == '\n')
 		return (pars_error(pars, "map data end on a carriage return"));
 	ptr = str;
-	while (*ptr && ft_strchr(" 01NOWE", *ptr))
+	while (*ptr && ft_strchr(" 01NSWE", *ptr))
 	{
-		if (*ptr && ft_strchr("NOWE", *ptr))
+		if (*ptr && ft_strchr("NSWE", *ptr))
 		{
 			if (pars->rotation)
 				return (pars_error(pars, "two or more spawn locations"));
@@ -51,7 +37,7 @@ static inline int	__line_get_map(char *str, t_pars *pars)
 		}
 		ptr++;
 	}
-	if (!ft_strchr(" 01NOWE\n\0", *ptr))
+	if (!ft_strchr(" 01NSWE\n\0", *ptr))
 		return (pars_error(pars, "unknown map data"));
 	if (ptr - str > pars->size[x])
 		pars->size[x] = ptr - str;

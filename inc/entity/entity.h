@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entity.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 07:50:47 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 08:46:35 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/13 14:02:19 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ typedef struct s_entity	t_entity;
 typedef size_t			t_ent_type;
 typedef size_t			t_ent_id;
 
-typedef void			(*t_func_updt) (t_entity *const s, t_data *const g, \
-						float const d);
-typedef void			(*t_func_disp) (t_entity *const s, t_data *const g);
-typedef void			(*t_func_dstr) (t_entity *const s, t_data *const g);
+typedef void (*t_func_updt)(t_entity *const s, t_data *const g, float const d);
+typedef void (*t_func_disp)(t_entity *const s, t_data *const g);
+typedef void (*t_func_dstr)(t_entity *const s, t_data *const g);
 
 enum e_entity
 {
@@ -33,10 +32,12 @@ enum e_entity
 	ENTITY_MIMIC,
 	ENTITY_DOOR,
 	ENTITY_SPIKE,
-	ENTITY_ENEMY_SCP,
-	ENTITY_ENEMY_FISH,
+	ENTITY_ENNEMY_SCP,
+	ENTITY_ENNEMY_FISH,
 	ENTITY_ROPE,
 	ENTITY_HOOK,
+	ENTITY_ENNEMY_CREEP,
+	ENTITY_ENNEMY_NEST,
 };
 
 void	entities_update(t_data *const game, float const dt);
@@ -44,6 +45,8 @@ void	entities_collisions(t_data *const game);
 void	entities_display(t_data *const game);
 void	entities_destroy(t_data *const game);
 
+
+// TODO: move to other file
 int		can_see_aabb(t_data *const game, t_v3f const pos, \
 		t_aabb *const box, float const dist);
 int		is_point_on_screen(t_data *const game, t_v3f const pos, \
@@ -63,6 +66,8 @@ struct s_entity
 	t_aabb		aabb;
 	t_mesh		*mesh;
 	float		time_alive;
+	float		health;
+	float		max_health;
 	int			dead;
 	t_ent_type	collided;
 	t_ent_id	uuid;
