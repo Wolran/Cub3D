@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
+/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 22:20:24 by vmuller           #+#    #+#             */
-/*   Updated: 2023/10/21 02:18:36 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/14 17:58:54 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,39 +30,37 @@ static inline int	__pars_clear(t_pars *const pars)
 int	pars_error(t_pars *const pars, char *const str)
 {
 	__pars_clear(pars);
-	ft_putstr_fd("parsing error : ", 2);
+	ft_putstr_fd("Error\nparsing error : ", 2);
 	ft_putstr_fd(str, 2);
-	write(2, (char [1]){'\n'}, 1);
+	ft_putstr_fd("\n", 2);
 	return (1);
 }
 
-t_map	pars_file(
-	t_data *const game,
-	t_engine *const eng,
-	char *const path)
+t_map	pars_file(t_engine *const eng, char *const path)
 {
 	t_pars	pars;
 	t_map	map;
 	int		fd;
 
-	if (!ft_strrchr(path, '.')
+	if (ft_strlen(path) <= 4 || !ft_strrchr(path, '.')
 		|| ft_strncmp(ft_strrchr(path, '.'), ".cub", 5))
-		return (ft_putstr_fd("parsing error : wrong extension\n", 2),
+		return (ft_putstr_fd("Error\nparsing error : wrong extension\n", 2),
 			(t_map){0});
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		return ((t_map){0});
-	ft_memset(&pars, 0, sizeof(t_pars));
+	pars = (t_pars){0};
 	pars.data = vector_create(sizeof(char *));
 	if (pars.data.data == NULL)
-		return (get_next_line(-1), vector_destroy(&pars.data), (t_map){0});
+		return (get_next_line(-1), close(fd), vector_destroy(&pars.data),
+			(t_map){0});
 	if (pars_elements(fd, &pars) || pars_map(fd, &pars))
-		return (get_next_line(-1), vector_destroy(&pars.data), (t_map){0});
+		return (get_next_line(-1), close(fd), vector_destroy(&pars.data),
+			(t_map){0});
 	get_next_line(-1);
-	if (pars_to_map(game, eng, &pars, &map)
-		|| (!is_map_closed(eng, &map) && __pars_clear(&pars)))
-		return (vector_destroy(&pars.data), (t_map){0});
+	if (pars_to_map(eng, &pars, &map)
+		|| (!is_map_closed(&map) && __pars_clear(&pars)))
+		return (close(fd), vector_destroy(&pars.data), (t_map){0});
 	__pars_clear(&pars);
-	vector_destroy(&pars.data);
-	return (map);
+	return (close(fd), vector_destroy(&pars.data), map);
 }

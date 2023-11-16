@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager_fish.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 19:39:50 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/14 18:26:21 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/16 04:56:25 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ static void	_enemy_fish_update(
 static void	_enemy_fish_display(t_entity *const self, t_data *const game)
 {
 	t_transform	trans;
-	t_v3f		slide;
 
-	slide = v3frot((t_v3f){.3f, 0.f, 0.f}, self->rot);
 	trans.rotation = (t_v2f){self->rot[x], 0.f};
 	trans.resize = (t_v3f){fabsf(sinf(self->dir[y] * 2.f)) \
 		* 0.1f + 0.25f, 0.25f, 0.25f};

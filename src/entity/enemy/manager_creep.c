@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manager_creep.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 03:09:47 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/14 14:12:39 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/16 04:55:12 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ t_entity	*e_enemy_creep_add(t_data *const game, t_v3f const pos, t_v2f rot)
 	ent->rot = rot;
 	ent->max_health = 150.f;
 	ent->health = ent->max_health;
-	ent->aabb = (t_aabb){pos - (t_v3f){.3f, .4f, .3f}, \
+	ent->aabb = (t_aabb){pos - (t_v3f){.3f, -0.4f, .3f}, \
 		{.6f, .6f, .6f}, AABB_MOVABLE};
 	if (map_get(&game->map, v3ftoi(pos) + (t_v3i){0, 1, 0}) == cell_air)
 	ent->aabb = (t_aabb){pos + (t_v3f){0, 1} - (t_v3f){.3f, .0f, .3f}, \

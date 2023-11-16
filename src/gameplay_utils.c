@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gameplay_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 03:40:20 by alde-fre          #+#    #+#             */
-/*   Updated: 2023/11/11 09:24:38 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/11/16 04:55:45 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,8 @@ static inline t_entity	*__check_ent_hit(
 	t_entity		*ent;
 	t_entity		*target;
 	float			dist;
-	int				hit;
 
 	target = NULL;
-	hit = 0;
 	index = 1;
 	dist = 0.0f;
 	while (index < game->entities.size)
