@@ -6,7 +6,7 @@
 /*   By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 16:53:58 by vmuller           #+#    #+#             */
-/*   Updated: 2023/10/17 16:58:13 by alde-fre         ###   ########.fr       */
+/*   Updated: 2023/10/13 09:27:09 by alde-fre         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ t_v3f	v3fcross(t_v3f a, t_v3f b)
 
 t_v3f	v3fnorm(t_v3f a, float n)
 {
-	float const	mag = v3fmag(a);
+	float	mag;
 
+	mag = v3fmag(a);
 	if (mag == 0.0f)
 		return ((t_v3f){0});
 	return (a / mag * n);
