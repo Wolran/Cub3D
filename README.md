@@ -7,13 +7,24 @@
 
 
 
-### EN: 
+### Description: 
 Cub3D is a 3D horror RPG game designed using raycasting, within which we developed our own rasterizer to incorporate custom 3D models into the game.
 
 ## Screenshot:
 
-![Screen1]()
+![Screen1](https://github.com/Wolran/cub3D/blob/main/screenshots/close.png)
+![Screen2](https://github.com/Wolran/cub3D/blob/main/screenshots/ennemy.png)
+![Screen3](https://github.com/Wolran/cub3D/blob/main/screenshots/lose.png)
+![Screen4](https://github.com/Wolran/cub3D/blob/main/screenshots/end.png)
 
+## Basic project
+
+- **3D Visualization:** Development of a 2D Game with 3D Visualization.
+- **Map parser:** Incorporation of a map parser with specific conditions.
+- **WASD keys:** Utilization of WASD keys for character movement and arrow keys for camera movement.
+- **Textures:** Addition of textures to the walls.
+- **Colors:** Assignment of colors to the floor and ceiling based on the map.
+- **Exit the game:** The Escape key or the cross button should allow for closing the game.
 
 ## Features  
 
@@ -36,7 +47,9 @@ Cub3D is a 3D horror RPG game designed using raycasting, within which we develop
 - **Automatic Door Management:** Implementation of automatic door management during generation between rooms.
 - **Constant Refresh Rate:** Maintaining a refresh rate between 40 and 90 frames per second.
 - **Fog of War:** Integration of a fog of war with a shader.
-- **Dynamic Change of Fog of War:** Modification of the color and range of the Fog of War based on game stages or in menus
+- **Dynamic Change of Fog of War:** Modification of the color and range of the Fog of War in menus.
+- **Easter egg:** It's up to you to find them.
+
 
 ## Run Locally :
 #### Clone the project  
