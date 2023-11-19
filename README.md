@@ -32,12 +32,12 @@ Cub3D is a 3D horror RPG game designed using raycasting, within which we develop
 - **Full 3D Graphics:** Game entirely in 3D, surpassing a simple 2D projection into 3D.
 - **Camera Control:** Ability to control the camera using the mouse.
 - **Advanced Textures:** Addition of reflection and transparency to textures.
-- **Particles:** Integration of particle effects.
+- **Particles:** The particles are rendered as billboard images and collide with the walls.
+- **Enemy AI:** Each enemy has their custom AI that interacts with the player.
 - **Texture Modularity:** Ability to modulate textures on all walls, including the floor and ceiling, with colorization.
 - **3D Rasterizer:** Creation of a 3D rasterizer to import .obj files.
 - **3D Modeling on Blender:** Creation of custom 3D models for objects, enemies, and environments, including textures.
 - **.obj File Parser:** Development of a custom parser for .obj files.
-- **Artificial Intelligence for Enemies:** Implementation of AI for enemies.
 - **Procedural Generation:** Random generation of rooms, objects, and enemies.
 - **In-Game Interface:** Presence of an in-game interface including health points, mini-map, FPS, settings, etc.
 - **Animated Game Menu:** Addition of animations before and after the game in the game menu.
