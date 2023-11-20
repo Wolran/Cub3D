@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alde-fre <alde-fre@student.42.fr>          +#+  +:+       +#+         #
+#    By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 16:35:02 by alde-fre          #+#    #+#              #
-#    Updated: 2023/10/23 14:58:55 by alde-fre         ###   ########.fr        #
+#    Updated: 2023/11/20 14:56:49 by vmuller          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 ##########################################
 
 # Compiler options
-CC=cc
+CC=clang
 CFLAGS=-Wall -Wextra -Werror -Ofast -g3
 LDFLAGS=
 BINARY_NAME=
