@@ -128,7 +128,7 @@ DEPENDS := $(patsubst %.o,%.d,$(OBJ))
 
 
 # compiler
-CC		= cc
+CC		= clang
 CFLAGS	= -MMD -MP -Wall -Wextra -Werror -g3
 
 # engine library
