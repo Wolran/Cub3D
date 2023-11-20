@@ -6,7 +6,7 @@
 /*   By: vmuller <vmuller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/11 08:45:45 by vmuller           #+#    #+#             */
-/*   Updated: 2023/11/16 04:56:59 by vmuller          ###   ########.fr       */
+/*   Updated: 2023/11/20 15:58:51 by vmuller          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ static void	_hook_display(t_entity *const self, t_data *const game)
 		mesh_put(game->eng, &game->cam, (t_transform) \
 			{{self->rot[x] + sinf(game->holding.time_from_start) * 0.03f,
 			cosf(game->holding.time_from_start * 0.842f) * 0.03f}, \
-			{.6f, .6f, .6f}, (self->aabb.pos + self->aabb.dim / 2) - (t_v3f){0.f, .25f}},
+			{.6f, .6f, .6f}, \
+			(self->aabb.pos + self->aabb.dim / 2) - (t_v3f){0.f, .25f}},
 			&game->models[12]);
 }
 
